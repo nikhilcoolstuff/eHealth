@@ -7,12 +7,14 @@
 //
 
 #import "EHAppDelegate.h"
+#import "EHNetworkManager.h"
 
 @implementation EHAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [EHNetworkManager theManager]; 
     return YES;
 }
 							

@@ -22,6 +22,7 @@
 		2FC33AE1188A60A100073D89 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC33AC0188A60A100073D89 /* UIKit.framework */; };
 		2FC33AE9188A60A100073D89 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FC33AE7188A60A100073D89 /* InfoPlist.strings */; };
 		2FC33AEB188A60A100073D89 /* eHealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33AEA188A60A100073D89 /* eHealthTests.m */; };
+		2FC33AF7188A618000073D89 /* EHNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33AF6188A618000073D89 /* EHNetworkManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		2FC33AE6188A60A100073D89 /* eHealthTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "eHealthTests-Info.plist"; sourceTree = "<group>"; };
 		2FC33AE8188A60A100073D89 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2FC33AEA188A60A100073D89 /* eHealthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eHealthTests.m; sourceTree = "<group>"; };
+		2FC33AF5188A618000073D89 /* EHNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHNetworkManager.h; sourceTree = "<group>"; };
+		2FC33AF6188A618000073D89 /* EHNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHNetworkManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +117,7 @@
 		2FC33AC2188A60A100073D89 /* eHealth */ = {
 			isa = PBXGroup;
 			children = (
+				2FC33AF4188A615E00073D89 /* Network */,
 				2FC33ACB188A60A100073D89 /* EHAppDelegate.h */,
 				2FC33ACC188A60A100073D89 /* EHAppDelegate.m */,
 				2FC33ACE188A60A100073D89 /* Main_iPhone.storyboard */,
@@ -153,6 +157,15 @@
 				2FC33AE7188A60A100073D89 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2FC33AF4188A615E00073D89 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33AF5188A618000073D89 /* EHNetworkManager.h */,
+				2FC33AF6188A618000073D89 /* EHNetworkManager.m */,
+			);
+			name = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +270,7 @@
 				2FC33AD6188A60A100073D89 /* EHViewController.m in Sources */,
 				2FC33AC9188A60A100073D89 /* main.m in Sources */,
 				2FC33ACD188A60A100073D89 /* EHAppDelegate.m in Sources */,
+				2FC33AF7188A618000073D89 /* EHNetworkManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

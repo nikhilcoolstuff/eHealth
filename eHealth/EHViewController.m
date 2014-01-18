@@ -7,6 +7,7 @@
 //
 
 #import "EHViewController.h"
+#import "EHNetworkManager.h"
 
 @interface EHViewController ()
 
@@ -17,13 +18,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[EHNetworkManager theManager] sendRequest];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end
