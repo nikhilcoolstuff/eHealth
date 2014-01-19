@@ -23,6 +23,26 @@
 		2FC33AE9188A60A100073D89 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2FC33AE7188A60A100073D89 /* InfoPlist.strings */; };
 		2FC33AEB188A60A100073D89 /* eHealthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33AEA188A60A100073D89 /* eHealthTests.m */; };
 		2FC33AF7188A618000073D89 /* EHNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33AF6188A618000073D89 /* EHNetworkManager.m */; };
+		2FC33AFD188B55EF00073D89 /* EHLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33AFC188B55EF00073D89 /* EHLoginController.m */; };
+		2FC33B02188B57B100073D89 /* mail.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC33B00188B57B100073D89 /* mail.png */; };
+		2FC33B03188B57B100073D89 /* mail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC33B01188B57B100073D89 /* mail@2x.png */; };
+		2FC33B06188B57BF00073D89 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC33B04188B57BF00073D89 /* lock.png */; };
+		2FC33B07188B57BF00073D89 /* lock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2FC33B05188B57BF00073D89 /* lock@2x.png */; };
+		2FC33B10188B64B100073D89 /* MBAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B0B188B64B100073D89 /* MBAlertView.m */; };
+		2FC33B11188B64B100073D89 /* MBAlertViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B0D188B64B100073D89 /* MBAlertViewButton.m */; };
+		2FC33B12188B64B100073D89 /* MBAlertViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B0F188B64B100073D89 /* MBAlertViewItem.m */; };
+		2FC33B15188B64EC00073D89 /* MBAlertAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B14188B64EC00073D89 /* MBAlertAbstract.m */; };
+		2FC33B1D188B652D00073D89 /* MBCheckMarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B18188B652D00073D89 /* MBCheckMarkView.m */; };
+		2FC33B1E188B652D00073D89 /* MBHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B1A188B652D00073D89 /* MBHUDView.m */; };
+		2FC33B1F188B652D00073D89 /* MBSpinningCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B1C188B652D00073D89 /* MBSpinningCircle.m */; };
+		2FC33B27188B655F00073D89 /* NSString+Trim.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B22188B655F00073D89 /* NSString+Trim.m */; };
+		2FC33B28188B655F00073D89 /* UIFont+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B24188B655F00073D89 /* UIFont+Alert.m */; };
+		2FC33B29188B655F00073D89 /* UIView+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B26188B655F00073D89 /* UIView+Alert.m */; };
+		2FC33B32188B65CE00073D89 /* AutoLayoutHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B2F188B65CE00073D89 /* AutoLayoutHelpers.m */; };
+		2FC33B33188B65CE00073D89 /* UIView+Autolayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B31188B65CE00073D89 /* UIView+Autolayout.m */; };
+		2FC33B3A188B65E000073D89 /* MBFlatAlertAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B35188B65E000073D89 /* MBFlatAlertAbstract.m */; };
+		2FC33B3B188B65E000073D89 /* MBFlatAlertButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B37188B65E000073D89 /* MBFlatAlertButton.m */; };
+		2FC33B3C188B65E000073D89 /* MBFlatAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FC33B39188B65E000073D89 /* MBFlatAlertView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +78,43 @@
 		2FC33AEA188A60A100073D89 /* eHealthTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = eHealthTests.m; sourceTree = "<group>"; };
 		2FC33AF5188A618000073D89 /* EHNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHNetworkManager.h; sourceTree = "<group>"; };
 		2FC33AF6188A618000073D89 /* EHNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHNetworkManager.m; sourceTree = "<group>"; };
+		2FC33AFB188B55EF00073D89 /* EHLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHLoginController.h; sourceTree = "<group>"; };
+		2FC33AFC188B55EF00073D89 /* EHLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHLoginController.m; sourceTree = "<group>"; };
+		2FC33B00188B57B100073D89 /* mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail.png; sourceTree = "<group>"; };
+		2FC33B01188B57B100073D89 /* mail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mail@2x.png"; sourceTree = "<group>"; };
+		2FC33B04188B57BF00073D89 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lock.png; sourceTree = "<group>"; };
+		2FC33B05188B57BF00073D89 /* lock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock@2x.png"; sourceTree = "<group>"; };
+		2FC33B0A188B64B100073D89 /* MBAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertView.h; sourceTree = "<group>"; };
+		2FC33B0B188B64B100073D89 /* MBAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertView.m; sourceTree = "<group>"; };
+		2FC33B0C188B64B100073D89 /* MBAlertViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertViewButton.h; sourceTree = "<group>"; };
+		2FC33B0D188B64B100073D89 /* MBAlertViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertViewButton.m; sourceTree = "<group>"; };
+		2FC33B0E188B64B100073D89 /* MBAlertViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertViewItem.h; sourceTree = "<group>"; };
+		2FC33B0F188B64B100073D89 /* MBAlertViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertViewItem.m; sourceTree = "<group>"; };
+		2FC33B13188B64EC00073D89 /* MBAlertAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBAlertAbstract.h; sourceTree = "<group>"; };
+		2FC33B14188B64EC00073D89 /* MBAlertAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBAlertAbstract.m; sourceTree = "<group>"; };
+		2FC33B17188B652D00073D89 /* MBCheckMarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBCheckMarkView.h; sourceTree = "<group>"; };
+		2FC33B18188B652D00073D89 /* MBCheckMarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBCheckMarkView.m; sourceTree = "<group>"; };
+		2FC33B19188B652D00073D89 /* MBHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBHUDView.h; sourceTree = "<group>"; };
+		2FC33B1A188B652D00073D89 /* MBHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBHUDView.m; sourceTree = "<group>"; };
+		2FC33B1B188B652D00073D89 /* MBSpinningCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBSpinningCircle.h; sourceTree = "<group>"; };
+		2FC33B1C188B652D00073D89 /* MBSpinningCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBSpinningCircle.m; sourceTree = "<group>"; };
+		2FC33B21188B655F00073D89 /* NSString+Trim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Trim.h"; sourceTree = "<group>"; };
+		2FC33B22188B655F00073D89 /* NSString+Trim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Trim.m"; sourceTree = "<group>"; };
+		2FC33B23188B655F00073D89 /* UIFont+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Alert.h"; sourceTree = "<group>"; };
+		2FC33B24188B655F00073D89 /* UIFont+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Alert.m"; sourceTree = "<group>"; };
+		2FC33B25188B655F00073D89 /* UIView+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Alert.h"; sourceTree = "<group>"; };
+		2FC33B26188B655F00073D89 /* UIView+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Alert.m"; sourceTree = "<group>"; };
+		2FC33B2B188B657C00073D89 /* MBAlertViewSubclass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MBAlertViewSubclass.h; sourceTree = "<group>"; };
+		2FC33B2E188B65CE00073D89 /* AutoLayoutHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayoutHelpers.h; sourceTree = "<group>"; };
+		2FC33B2F188B65CE00073D89 /* AutoLayoutHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayoutHelpers.m; sourceTree = "<group>"; };
+		2FC33B30188B65CE00073D89 /* UIView+Autolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Autolayout.h"; sourceTree = "<group>"; };
+		2FC33B31188B65CE00073D89 /* UIView+Autolayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Autolayout.m"; sourceTree = "<group>"; };
+		2FC33B34188B65E000073D89 /* MBFlatAlertAbstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFlatAlertAbstract.h; sourceTree = "<group>"; };
+		2FC33B35188B65E000073D89 /* MBFlatAlertAbstract.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFlatAlertAbstract.m; sourceTree = "<group>"; };
+		2FC33B36188B65E000073D89 /* MBFlatAlertButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFlatAlertButton.h; sourceTree = "<group>"; };
+		2FC33B37188B65E000073D89 /* MBFlatAlertButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFlatAlertButton.m; sourceTree = "<group>"; };
+		2FC33B38188B65E000073D89 /* MBFlatAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBFlatAlertView.h; sourceTree = "<group>"; };
+		2FC33B39188B65E000073D89 /* MBFlatAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBFlatAlertView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +174,8 @@
 		2FC33AC2188A60A100073D89 /* eHealth */ = {
 			isa = PBXGroup;
 			children = (
+				2FC33B08188B648C00073D89 /* MBAlertView */,
+				2FC33AFE188B55F600073D89 /* Login */,
 				2FC33AF4188A615E00073D89 /* Network */,
 				2FC33ACB188A60A100073D89 /* EHAppDelegate.h */,
 				2FC33ACC188A60A100073D89 /* EHAppDelegate.m */,
@@ -133,6 +192,7 @@
 		2FC33AC3188A60A100073D89 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2FC33AFF188B57A800073D89 /* Icons */,
 				2FC33AC4188A60A100073D89 /* eHealth-Info.plist */,
 				2FC33AC5188A60A100073D89 /* InfoPlist.strings */,
 				2FC33AC8188A60A100073D89 /* main.m */,
@@ -166,6 +226,112 @@
 				2FC33AF6188A618000073D89 /* EHNetworkManager.m */,
 			);
 			name = Network;
+			sourceTree = "<group>";
+		};
+		2FC33AFE188B55F600073D89 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33AFB188B55EF00073D89 /* EHLoginController.h */,
+				2FC33AFC188B55EF00073D89 /* EHLoginController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		2FC33AFF188B57A800073D89 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33B04188B57BF00073D89 /* lock.png */,
+				2FC33B05188B57BF00073D89 /* lock@2x.png */,
+				2FC33B00188B57B100073D89 /* mail.png */,
+				2FC33B01188B57B100073D89 /* mail@2x.png */,
+			);
+			name = Icons;
+			sourceTree = "<group>";
+		};
+		2FC33B08188B648C00073D89 /* MBAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33B2C188B65B800073D89 /* Flat */,
+				2FC33B2A188B656E00073D89 /* Protected */,
+				2FC33B20188B654200073D89 /* Categories */,
+				2FC33B16188B64FF00073D89 /* HUD */,
+				2FC33B13188B64EC00073D89 /* MBAlertAbstract.h */,
+				2FC33B14188B64EC00073D89 /* MBAlertAbstract.m */,
+				2FC33B09188B64A400073D89 /* Classic */,
+			);
+			name = MBAlertView;
+			sourceTree = "<group>";
+		};
+		2FC33B09188B64A400073D89 /* Classic */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33B0A188B64B100073D89 /* MBAlertView.h */,
+				2FC33B0B188B64B100073D89 /* MBAlertView.m */,
+				2FC33B0C188B64B100073D89 /* MBAlertViewButton.h */,
+				2FC33B0D188B64B100073D89 /* MBAlertViewButton.m */,
+				2FC33B0E188B64B100073D89 /* MBAlertViewItem.h */,
+				2FC33B0F188B64B100073D89 /* MBAlertViewItem.m */,
+			);
+			name = Classic;
+			sourceTree = "<group>";
+		};
+		2FC33B16188B64FF00073D89 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33B17188B652D00073D89 /* MBCheckMarkView.h */,
+				2FC33B18188B652D00073D89 /* MBCheckMarkView.m */,
+				2FC33B19188B652D00073D89 /* MBHUDView.h */,
+				2FC33B1A188B652D00073D89 /* MBHUDView.m */,
+				2FC33B1B188B652D00073D89 /* MBSpinningCircle.h */,
+				2FC33B1C188B652D00073D89 /* MBSpinningCircle.m */,
+			);
+			name = HUD;
+			sourceTree = "<group>";
+		};
+		2FC33B20188B654200073D89 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33B21188B655F00073D89 /* NSString+Trim.h */,
+				2FC33B22188B655F00073D89 /* NSString+Trim.m */,
+				2FC33B23188B655F00073D89 /* UIFont+Alert.h */,
+				2FC33B24188B655F00073D89 /* UIFont+Alert.m */,
+				2FC33B25188B655F00073D89 /* UIView+Alert.h */,
+				2FC33B26188B655F00073D89 /* UIView+Alert.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		2FC33B2A188B656E00073D89 /* Protected */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33B2B188B657C00073D89 /* MBAlertViewSubclass.h */,
+			);
+			name = Protected;
+			sourceTree = "<group>";
+		};
+		2FC33B2C188B65B800073D89 /* Flat */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33B34188B65E000073D89 /* MBFlatAlertAbstract.h */,
+				2FC33B35188B65E000073D89 /* MBFlatAlertAbstract.m */,
+				2FC33B36188B65E000073D89 /* MBFlatAlertButton.h */,
+				2FC33B37188B65E000073D89 /* MBFlatAlertButton.m */,
+				2FC33B38188B65E000073D89 /* MBFlatAlertView.h */,
+				2FC33B39188B65E000073D89 /* MBFlatAlertView.m */,
+				2FC33B2D188B65C300073D89 /* AutolayoutHelpers */,
+			);
+			name = Flat;
+			sourceTree = "<group>";
+		};
+		2FC33B2D188B65C300073D89 /* AutolayoutHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				2FC33B2E188B65CE00073D89 /* AutoLayoutHelpers.h */,
+				2FC33B2F188B65CE00073D89 /* AutoLayoutHelpers.m */,
+				2FC33B30188B65CE00073D89 /* UIView+Autolayout.h */,
+				2FC33B31188B65CE00073D89 /* UIView+Autolayout.m */,
+			);
+			name = AutolayoutHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -246,9 +412,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2FC33AD3188A60A100073D89 /* Main_iPad.storyboard in Resources */,
+				2FC33B07188B57BF00073D89 /* lock@2x.png in Resources */,
+				2FC33B02188B57B100073D89 /* mail.png in Resources */,
 				2FC33AD8188A60A100073D89 /* Images.xcassets in Resources */,
+				2FC33B03188B57B100073D89 /* mail@2x.png in Resources */,
 				2FC33AD0188A60A100073D89 /* Main_iPhone.storyboard in Resources */,
 				2FC33AC7188A60A100073D89 /* InfoPlist.strings in Resources */,
+				2FC33B06188B57BF00073D89 /* lock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,10 +437,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FC33B10188B64B100073D89 /* MBAlertView.m in Sources */,
+				2FC33B3C188B65E000073D89 /* MBFlatAlertView.m in Sources */,
+				2FC33B28188B655F00073D89 /* UIFont+Alert.m in Sources */,
 				2FC33AD6188A60A100073D89 /* EHViewController.m in Sources */,
+				2FC33B27188B655F00073D89 /* NSString+Trim.m in Sources */,
+				2FC33B11188B64B100073D89 /* MBAlertViewButton.m in Sources */,
+				2FC33B33188B65CE00073D89 /* UIView+Autolayout.m in Sources */,
+				2FC33B15188B64EC00073D89 /* MBAlertAbstract.m in Sources */,
+				2FC33B1F188B652D00073D89 /* MBSpinningCircle.m in Sources */,
 				2FC33AC9188A60A100073D89 /* main.m in Sources */,
+				2FC33B3B188B65E000073D89 /* MBFlatAlertButton.m in Sources */,
+				2FC33B32188B65CE00073D89 /* AutoLayoutHelpers.m in Sources */,
 				2FC33ACD188A60A100073D89 /* EHAppDelegate.m in Sources */,
+				2FC33B12188B64B100073D89 /* MBAlertViewItem.m in Sources */,
+				2FC33B3A188B65E000073D89 /* MBFlatAlertAbstract.m in Sources */,
+				2FC33B1D188B652D00073D89 /* MBCheckMarkView.m in Sources */,
 				2FC33AF7188A618000073D89 /* EHNetworkManager.m in Sources */,
+				2FC33AFD188B55EF00073D89 /* EHLoginController.m in Sources */,
+				2FC33B29188B655F00073D89 /* UIView+Alert.m in Sources */,
+				2FC33B1E188B652D00073D89 /* MBHUDView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +596,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "eHealth/eHealth-Prefix.pch";
 				INFOPLIST_FILE = "eHealth/eHealth-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -423,6 +610,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "eHealth/eHealth-Prefix.pch";
 				INFOPLIST_FILE = "eHealth/eHealth-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

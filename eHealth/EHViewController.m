@@ -18,7 +18,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[EHNetworkManager theManager] sendRequest];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
