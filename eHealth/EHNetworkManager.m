@@ -7,8 +7,9 @@
 //
 
 #import "EHNetworkManager.h"
+#import "MBFlatAlertView.h"
+
 #define kDefaultTimeout 120.0f // in seconds
-#define kMaxOperationNumber 10
 #define kMaxOperationNumber 10
 
 @interface EHNetworkManager()
@@ -56,8 +57,12 @@
     
 -(void) sendRequest {
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://centiva.co/ehealth/service.php?func=getUserLogin&u=amit&p=amit@123"]];
-    
+    //NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://centiva.co/ehealth/service.php?func=getUserLogin&u=amit&p=amit@123"]];
+ //   NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://centiva.co/ehealth/service.php?func=getUserLogin&u=amit&p=amit@123&t=#$@#%$#TERGRTY$%TEG"]];
+    NSString *URL = @"http://centiva.co/ehealth/service.php?func=getUserLogin&u=amit&p=amit@123&t=#$@#%$#TERGRTY$%TEG";
+    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
+
     // Create url connection and fire request
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
@@ -68,11 +73,34 @@
                                           returningResponse:&response
                                                       error:&error];
     
-    if (error == nil)
-    {
-        NSLog(@"data can be parsed now");
+    if (error == nil) {
+        NSLog(@"Connection Successful");
+    } else {
+        [self showAlertWithTitle:@"Error" message:@"Unable to connect"];
     }
 }
+
+
+#pragma Local Methods
+
+-(void)checkLoginStatuswithResponse:(NSDictionary *)response{
+
+    if ([response[@"status"] isEqualToString:@"no"])
+        [self showAlertWithTitle:@"Error" message:response[@"msg"]];
+    else
+        NSLog(@"login success!");
+}
+
+#pragma alerts
+
+-(void) showAlertWithTitle:(NSString*)title message:(NSString *)message {
+    
+    MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:title detailText:message cancelTitle:@"OK" cancelBlock:^{
+    }];
+    
+    [alert addToDisplayQueue];
+}
+
 
 #pragma mark - NSURLConnectionDelegate Methods
 
@@ -101,7 +129,15 @@
     if (connection)
     {
         NSString *responseString = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
+        
+        NSError* error;
+        NSDictionary* responseDictionary = [NSJSONSerialization
+                              JSONObjectWithData:self.responseData
+                              options:kNilOptions
+                              error:&error];
+        
         NSLog(@"responseString: %@", responseString);
+        [self checkLoginStatuswithResponse:responseDictionary];
     }
 }
 

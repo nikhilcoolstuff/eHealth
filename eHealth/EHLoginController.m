@@ -9,6 +9,7 @@
 #import "EHLoginController.h"
 #import "MBFlatAlertView.h"
 #import "EHNetworkManager.h"
+#import "MBHUDView.h"
 
 @interface EHLoginController ()
 
@@ -110,6 +111,17 @@
 
 }
 
+
+#pragma actions
+
+- (IBAction)loginAction:(id)sender {
+    [self loginProcess];
+}
+
+- (IBAction)forgotAction:(id)sender {
+    [self forgotPasswordProcess];
+}
+
 #pragma validate email
 
 -(BOOL) NSStringIsValidEmail:(NSString *)checkString
@@ -136,20 +148,36 @@
     } else {
         // Not found, so remove keyboard.
         [textField resignFirstResponder];
-        BOOL VALID = [self NSStringIsValidEmail:self.usernameField.text];
-        if (VALID)
-            [[EHNetworkManager theManager] sendRequest];
-        else
-            [self showAlert];
+        [self loginProcess];
     }
     return NO;
 }
 
 #pragma local Methods
 
--(void) showAlert {
+-(void) loginProcess {
 
-    MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:@"Error" detailText:@"Please enter a valid email address" cancelTitle:@"OK" cancelBlock:^{
+    if (self.usernameField.text.length && self.passwordField.text.length) {
+    
+        BOOL VALID = [self NSStringIsValidEmail:self.usernameField.text];
+    
+        if (VALID){
+            [MBHUDView hudWithBody:@"Logging..." type:MBAlertViewHUDTypeActivityIndicator hidesAfter:4.0 show:YES];
+            [[EHNetworkManager theManager] sendRequest];
+        } else
+            [self showAlertWithTitle:@"Error" message:@"Please enter a valid email address"];
+    } else {
+        [self showAlertWithTitle:@"Error" message:@"User name or password cannot be blank"];
+    }
+}
+
+-(void) forgotPasswordProcess {
+    //TODO: logic to forgot password
+}
+
+-(void) showAlertWithTitle:(NSString *)title message:(NSString *) message {
+
+    MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:title detailText:message cancelTitle:@"OK" cancelBlock:^{
         [self.usernameField becomeFirstResponder];
     }];
  
