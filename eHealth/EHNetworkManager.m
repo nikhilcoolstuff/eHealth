@@ -8,6 +8,7 @@
 
 #import "EHNetworkManager.h"
 #import "MBFlatAlertView.h"
+#define kLoginSuccess @"loginSuccessfulNotification"
 
 #define kDefaultTimeout 120.0f // in seconds
 #define kMaxOperationNumber 10
@@ -59,7 +60,7 @@
     
     //NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://centiva.co/ehealth/service.php?func=getUserLogin&u=amit&p=amit@123"]];
  //   NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://centiva.co/ehealth/service.php?func=getUserLogin&u=amit&p=amit@123&t=#$@#%$#TERGRTY$%TEG"]];
-    NSString *URL = @"http://centiva.co/ehealth/service.php?func=getUserLogin&u=amit&p=amit@123&t=#$@#%$#TERGRTY$%TEG";
+    NSString *URL = @"http://centiva.co/ehealth/service.php?func=getUserLogin&u=amit&p=amit@123&t=centiva123";
     NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
 
@@ -85,10 +86,13 @@
 
 -(void)checkLoginStatuswithResponse:(NSDictionary *)response{
 
-    if ([response[@"status"] isEqualToString:@"no"])
-        [self showAlertWithTitle:@"Error" message:response[@"msg"]];
-    else
+//    if ([response[@"status"] isEqualToString:@"no"])
+//        [self showAlertWithTitle:@"Error" message:response[@"msg"]];
+//    else {
         NSLog(@"login success!");
+        //notify others when login is successful.
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
+//    }
 }
 
 #pragma alerts

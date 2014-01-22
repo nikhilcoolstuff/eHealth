@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "EHNetworkManager.h"
 @interface EHLoginController : UIViewController <UITextFieldDelegate>
 
 @end

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SFSlideMenuViewController.h"
 
 @interface EHViewController : UIViewController
+@property (nonatomic,strong) SFSlideMenuViewController* menuViewController;
 
 @end

@@ -8,8 +8,8 @@
 
 #import "EHLoginController.h"
 #import "MBFlatAlertView.h"
-#import "EHNetworkManager.h"
 #import "MBHUDView.h"
+#define kLoginSuccess @"loginSuccessfulNotification"
 
 @interface EHLoginController ()
 
@@ -108,9 +108,23 @@
     self.subTitleLabel.textColor =  [UIColor whiteColor];
     self.subTitleLabel.font =  [UIFont fontWithName:fontName size:14.0f];
     self.subTitleLabel.text = @"Welcome back, please login below";
-
+    
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+ 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userIsValid:)
+                                                 name:kLoginSuccess
+                                               object:nil];
+    
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+ 
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+}
 
 #pragma actions
 
@@ -162,7 +176,7 @@
         BOOL VALID = [self NSStringIsValidEmail:self.usernameField.text];
     
         if (VALID){
-            [MBHUDView hudWithBody:@"Logging..." type:MBAlertViewHUDTypeActivityIndicator hidesAfter:4.0 show:YES];
+            [MBHUDView hudWithBody:@"Logging in..." type:MBAlertViewHUDTypeActivityIndicator hidesAfter:4.0 show:YES];
             [[EHNetworkManager theManager] sendRequest];
         } else
             [self showAlertWithTitle:@"Error" message:@"Please enter a valid email address"];
@@ -183,6 +197,25 @@
  
     [alert addToDisplayQueue];
 
+}
+
+
+#pragma network manager delegate 
+
+-(void) userIsValid:(NSNotification *) notification {
+
+    // login authenticated
+    if (!notification) {
+        return;
+    }
+    NSLog(@"login has been authenticated");
+    //SFSlideMenuRootViewController
+    
+  //  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle: nil];
+  //  UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"slideMenuRootVC"];
+  //  [self.navigationController pushViewController:vc animated:YES];
+    //[self presentViewController:vc animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"loginSuccess" sender:self];
 }
 
 @end

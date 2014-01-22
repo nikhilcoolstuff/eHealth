@@ -7,12 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+@protocol EHNetworkManagerDelegate;
 
 @interface EHNetworkManager : NSObject <NSURLConnectionDelegate>
 
 @property (nonatomic, strong) NSMutableData *responseData;
+@property (nonatomic, weak) id <EHNetworkManagerDelegate> delegate;
 
 -(void) sendRequest;
 + (EHNetworkManager *)theManager;
+
+@end
+
+@protocol EHNetworkManagerDelegate <NSObject>
+@optional
+-(void) userIsValid;
 
 @end
