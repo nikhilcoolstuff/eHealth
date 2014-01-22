@@ -49,7 +49,7 @@
     self.profileLocationLabel.font = [UIFont fontWithName:boldFontName size:12.0f];
     self.profileLocationLabel.text = @"London, UK";
     
-    self.profileImageView.image = [UIImage imageNamed:@"profile.jpg"];
+    self.profileImageView.image = [UIImage imageNamed:@"profile-1.jpg"];
     self.profileImageView.clipsToBounds = YES;
     self.profileImageView.layer.borderWidth = 4.0f;
     self.profileImageView.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.5f].CGColor;
@@ -59,16 +59,17 @@
     NSDictionary* object1 = [NSDictionary dictionaryWithObjects:@[ @"Inbox", @"7", @"envelope" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object2 = [NSDictionary dictionaryWithObjects:@[ @"Updates", @"7", @"check" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object3 = [NSDictionary dictionaryWithObjects:@[ @"Account", @"0", @"account" ] forKeys:@[ @"title", @"count", @"icon" ]];
-    NSDictionary* object4 = [NSDictionary dictionaryWithObjects:@[ @"Settings", @"0", @"settings" ] forKeys:@[ @"title", @"count", @"icon" ]];
-    NSDictionary* object5 = [NSDictionary dictionaryWithObjects:@[ @"Logout", @"0", @"arrow" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object4 = [NSDictionary dictionaryWithObjects:@[ @"Create Event", @"0", @"account" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object5 = [NSDictionary dictionaryWithObjects:@[ @"Settings", @"0", @"settings" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object6 = [NSDictionary dictionaryWithObjects:@[ @"Logout", @"0", @"arrow" ] forKeys:@[ @"title", @"count", @"icon" ]];
     
-    self.items = @[object1, object2, object3, object4, object5];
+    self.items = @[object1, object2, object3, object4, object5, object6];
 	
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return 4;
+    return self.items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
