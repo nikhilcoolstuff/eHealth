@@ -7,11 +7,9 @@
 //
 
 #import "EHSideController.h"
-#import "EHSidebarCell.h"
 #import "EHViewController.h"
 
 @interface EHSideController ()
-@property (nonatomic, strong) NSArray* items;
 
 @property (nonatomic, weak) IBOutlet UILabel* profileNameLabel;
 
@@ -58,7 +56,7 @@
     
     NSDictionary* object1 = [NSDictionary dictionaryWithObjects:@[ @"Inbox", @"7", @"envelope" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object2 = [NSDictionary dictionaryWithObjects:@[ @"Updates", @"7", @"check" ] forKeys:@[ @"title", @"count", @"icon" ]];
-    NSDictionary* object3 = [NSDictionary dictionaryWithObjects:@[ @"Account", @"0", @"account" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object3 = [NSDictionary dictionaryWithObjects:@[ @"Profile", @"0", @"user" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object4 = [NSDictionary dictionaryWithObjects:@[ @"Create Event", @"0", @"account" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object5 = [NSDictionary dictionaryWithObjects:@[ @"Settings", @"0", @"settings" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object6 = [NSDictionary dictionaryWithObjects:@[ @"Logout", @"0", @"arrow" ] forKeys:@[ @"title", @"count", @"icon" ]];
@@ -67,37 +65,7 @@
 	
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    
-    return self.items.count;
-}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    EHSidebarCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SidebarCell"];
-    
-    NSDictionary* item = self.items[indexPath.row];
-    
-    cell.titleLabel.text = item[@"title"];
-    cell.iconImageView.image = [UIImage imageNamed:item[@"icon"]];
-    
-    NSString* count = item[@"count"];
-    if(![count isEqualToString:@"0"]){
-        cell.countLabel.text = count;
-    }
-    else{
-        cell.countLabel.alpha = 0;
-    }
-    
-    return cell;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 46;
-}
-
-
-#pragma mark -
 #pragma mark SFSlideMenuDataSource
 
 -(NSIndexPath*) selectedIndexPath{
@@ -105,7 +73,39 @@
 }
 
 -(NSString*) segueIdForIndexPath:(NSIndexPath *)indexPath{
-    return @"slider";
+    
+    NSString *segueID;
+    
+    switch (indexPath.row) {
+        case 0:
+            segueID = @"Inbox";
+            break;
+        case 1:
+            segueID = @"slider";
+
+            break;
+        case 2:
+            segueID = @"profile";
+
+            break;
+        case 3:
+            segueID = @"createEvent";
+
+            break;
+        case 4:
+            segueID = @"settings";
+
+            break;
+        case 5:
+            segueID = @"slider";
+
+            break;
+            
+        default:
+            segueID = @"slider";
+            break;
+    }
+    return segueID;
 }
 
 -(Boolean) allowContentViewControllerCachingForIndexPath:(NSIndexPath *)indexPath{
@@ -146,7 +146,7 @@
     }
 }
 
-#pragma mark -
+
 #pragma mark SFSlideMenuDelegate
 
 -(void) slideMenuWillSlideIn:(UINavigationController *)selectedContent{
@@ -173,5 +173,7 @@
 -(void) slideMenuDidSlideToLeft:(UINavigationController *)selectedContent{
     NSLog(@"slideMenuDidSlideToLeft");
 }
+
+
 
 @end

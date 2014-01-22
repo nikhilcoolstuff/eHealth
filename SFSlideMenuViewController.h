@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSObject<SFSlideMenuDataSource>* slideMenuDataSource;
 @property (strong, nonatomic) NSObject<SFSlideMenuDelegate>* slideMenuDelegate;
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) NSArray* items;
 
 -(void)selectContentAtIndexPath:(NSIndexPath *)indexPath scrollPosition:(UITableViewScrollPosition)scrollPosition;
 -(void) revealLeftMenu;

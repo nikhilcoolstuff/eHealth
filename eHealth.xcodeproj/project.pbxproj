@@ -18,6 +18,11 @@
 		2F375CC5188FA8BB0077657E /* SFSlideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F375CBC188FA8BB0077657E /* SFSlideMenuViewController.m */; };
 		2F375CC8188FDF620077657E /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F375CC6188FDF620077657E /* menuIcon.png */; };
 		2F375CC9188FDF620077657E /* menuIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F375CC7188FDF620077657E /* menuIcon@2x.png */; };
+		2F375CCC188FE8900077657E /* EHCreateEventController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F375CCB188FE8900077657E /* EHCreateEventController.m */; };
+		2F375CCF188FE8AE0077657E /* EHSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F375CCE188FE8AE0077657E /* EHSettingsController.m */; };
+		2F375CD2188FE8D50077657E /* EHInboxController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F375CD1188FE8D50077657E /* EHInboxController.m */; };
+		2F375CD5188FE9550077657E /* EHProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F375CD4188FE9550077657E /* EHProfileController.m */; };
+		2F375CDB188FEA8A0077657E /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F375CDA188FEA8A0077657E /* user.png */; };
 		2FC33ABD188A60A100073D89 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC33ABC188A60A100073D89 /* Foundation.framework */; };
 		2FC33ABF188A60A100073D89 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC33ABE188A60A100073D89 /* CoreGraphics.framework */; };
 		2FC33AC1188A60A100073D89 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC33AC0188A60A100073D89 /* UIKit.framework */; };
@@ -102,6 +107,15 @@
 		2F375CBC188FA8BB0077657E /* SFSlideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFSlideMenuViewController.m; sourceTree = "<group>"; };
 		2F375CC6188FDF620077657E /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
 		2F375CC7188FDF620077657E /* menuIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuIcon@2x.png"; sourceTree = "<group>"; };
+		2F375CCA188FE8900077657E /* EHCreateEventController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHCreateEventController.h; sourceTree = "<group>"; };
+		2F375CCB188FE8900077657E /* EHCreateEventController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHCreateEventController.m; sourceTree = "<group>"; };
+		2F375CCD188FE8AE0077657E /* EHSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHSettingsController.h; sourceTree = "<group>"; };
+		2F375CCE188FE8AE0077657E /* EHSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHSettingsController.m; sourceTree = "<group>"; };
+		2F375CD0188FE8D50077657E /* EHInboxController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHInboxController.h; sourceTree = "<group>"; };
+		2F375CD1188FE8D50077657E /* EHInboxController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHInboxController.m; sourceTree = "<group>"; };
+		2F375CD3188FE9550077657E /* EHProfileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHProfileController.h; sourceTree = "<group>"; };
+		2F375CD4188FE9550077657E /* EHProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHProfileController.m; sourceTree = "<group>"; };
+		2F375CDA188FEA8A0077657E /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		2FC33AB9188A60A100073D89 /* eHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC33ABC188A60A100073D89 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2FC33ABE188A60A100073D89 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -229,10 +243,47 @@
 			name = slideMenu;
 			sourceTree = "<group>";
 		};
+		2F375CD6188FE97C0077657E /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				2F375CCA188FE8900077657E /* EHCreateEventController.h */,
+				2F375CCB188FE8900077657E /* EHCreateEventController.m */,
+			);
+			name = Event;
+			sourceTree = "<group>";
+		};
+		2F375CD7188FE98B0077657E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				2F375CD3188FE9550077657E /* EHProfileController.h */,
+				2F375CD4188FE9550077657E /* EHProfileController.m */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		2F375CD8188FE9950077657E /* Inbox */ = {
+			isa = PBXGroup;
+			children = (
+				2F375CD0188FE8D50077657E /* EHInboxController.h */,
+				2F375CD1188FE8D50077657E /* EHInboxController.m */,
+			);
+			name = Inbox;
+			sourceTree = "<group>";
+		};
+		2F375CD9188FE9A10077657E /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				2F375CCD188FE8AE0077657E /* EHSettingsController.h */,
+				2F375CCE188FE8AE0077657E /* EHSettingsController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		2FC33AB0188A60A100073D89 = {
 			isa = PBXGroup;
 			children = (
 				2F375CA8188FA88D0077657E /* slideMenu */,
+				2FC33B08188B648C00073D89 /* MBAlertView */,
 				2FC33AC2188A60A100073D89 /* eHealth */,
 				2FC33AE4188A60A100073D89 /* eHealthTests */,
 				2FC33ABB188A60A100073D89 /* Frameworks */,
@@ -263,8 +314,11 @@
 		2FC33AC2188A60A100073D89 /* eHealth */ = {
 			isa = PBXGroup;
 			children = (
+				2F375CD9188FE9A10077657E /* Settings */,
+				2F375CD8188FE9950077657E /* Inbox */,
+				2F375CD7188FE98B0077657E /* Profile */,
+				2F375CD6188FE97C0077657E /* Event */,
 				2FC33B57188BE63000073D89 /* SideBar */,
-				2FC33B08188B648C00073D89 /* MBAlertView */,
 				2FC33AFE188B55F600073D89 /* Login */,
 				2FC33AF4188A615E00073D89 /* Network */,
 				2FC33ACB188A60A100073D89 /* EHAppDelegate.h */,
@@ -331,6 +385,7 @@
 		2FC33AFF188B57A800073D89 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				2F375CDA188FEA8A0077657E /* user.png */,
 				2F375CC6188FDF620077657E /* menuIcon.png */,
 				2F375CC7188FDF620077657E /* menuIcon@2x.png */,
 				2FC33B43188BE5C100073D89 /* account.png */,
@@ -363,6 +418,7 @@
 				2FC33B09188B64A400073D89 /* Classic */,
 			);
 			name = MBAlertView;
+			path = eHealth;
 			sourceTree = "<group>";
 		};
 		2FC33B09188B64A400073D89 /* Classic */ = {
@@ -547,6 +603,7 @@
 				2FC33B56188BE5C100073D89 /* check@2x.png in Resources */,
 				2FC33B07188B57BF00073D89 /* lock@2x.png in Resources */,
 				2FC33B02188B57B100073D89 /* mail.png in Resources */,
+				2F375CDB188FEA8A0077657E /* user.png in Resources */,
 				2FC33AD8188A60A100073D89 /* Images.xcassets in Resources */,
 				2FC33B03188B57B100073D89 /* mail@2x.png in Resources */,
 				2FC33AD0188A60A100073D89 /* Main_iPhone.storyboard in Resources */,
@@ -581,6 +638,7 @@
 				2FC33AD6188A60A100073D89 /* EHViewController.m in Sources */,
 				2F375CC0188FA8BB0077657E /* SFSlideMenuNavigationController.m in Sources */,
 				2FC33B27188B655F00073D89 /* NSString+Trim.m in Sources */,
+				2F375CD5188FE9550077657E /* EHProfileController.m in Sources */,
 				2FC33B11188B64B100073D89 /* MBAlertViewButton.m in Sources */,
 				2F375CBD188FA8BB0077657E /* SFMenuCell.m in Sources */,
 				2FC33B5A188BE65000073D89 /* EHSidebarCell.m in Sources */,
@@ -591,14 +649,17 @@
 				2FC33AC9188A60A100073D89 /* main.m in Sources */,
 				2F375CBF188FA8BB0077657E /* SFSlideMenuLeftMenuSegue.m in Sources */,
 				2FC33B3B188B65E000073D89 /* MBFlatAlertButton.m in Sources */,
+				2F375CD2188FE8D50077657E /* EHInboxController.m in Sources */,
 				2FC33B32188B65CE00073D89 /* AutoLayoutHelpers.m in Sources */,
 				2F375CBE188FA8BB0077657E /* SFSlideMenuContentSegue.m in Sources */,
 				2FC33ACD188A60A100073D89 /* EHAppDelegate.m in Sources */,
+				2F375CCF188FE8AE0077657E /* EHSettingsController.m in Sources */,
 				2FC33B12188B64B100073D89 /* MBAlertViewItem.m in Sources */,
 				2F375CC4188FA8BB0077657E /* SFSlideMenuRootViewController.m in Sources */,
 				2F375CC2188FA8BB0077657E /* SFSlideMenuRightMenuSegue.m in Sources */,
 				2FC33B3A188B65E000073D89 /* MBFlatAlertAbstract.m in Sources */,
 				2FC33B1D188B652D00073D89 /* MBCheckMarkView.m in Sources */,
+				2F375CCC188FE8900077657E /* EHCreateEventController.m in Sources */,
 				2FC33AF7188A618000073D89 /* EHNetworkManager.m in Sources */,
 				2FC33AFD188B55EF00073D89 /* EHLoginController.m in Sources */,
 				2FC33B29188B655F00073D89 /* UIView+Alert.m in Sources */,

@@ -8,6 +8,8 @@
 
 #import "SFSlideMenuViewController.h"
 #import "SFSlideMenuRootViewController.h"
+#import "EHSidebarCell.h"
+
 @interface SFSlideMenuViewController ()<SFSlideMenuDataSource,SFSlideMenuDelegate>
 @property (nonatomic) NSIndexPath* currentContentIndexPath;
 @end
@@ -97,11 +99,45 @@
     return YES;
 }
 
-#pragma mark -
+
 #pragma mark UITableViewDelegate
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //[self loadContentAtIndexPath:indexPath];
+    [self loadContentAtIndexPath:indexPath];
 }
+
+
+#pragma UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    return self.items.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    EHSidebarCell* cell = [tableView dequeueReusableCellWithIdentifier:@"SidebarCell"];
+    
+    NSDictionary* item = self.items[indexPath.row];
+    
+    cell.titleLabel.text = item[@"title"];
+    cell.iconImageView.image = [UIImage imageNamed:item[@"icon"]];
+    
+    NSString* count = item[@"count"];
+    if(![count isEqualToString:@"0"]){
+        cell.countLabel.text = count;
+    }
+    else{
+        cell.countLabel.alpha = 0;
+    }
+    
+    return cell;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 46;
+}
+
+
 
 @end
