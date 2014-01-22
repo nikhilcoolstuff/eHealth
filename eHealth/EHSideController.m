@@ -27,7 +27,9 @@
     [super viewDidLoad];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.topViewController.navigationController.navigationBarHidden = NO;
+    self.navigationController.topViewController.title = @"Selector";
+    self.navigationController.topViewController.navigationController.navigationBar.backgroundColor = [UIColor redColor];
     
     UIColor* mainColor = [UIColor colorWithRed:47.0/255 green:168.0/255 blue:228.0/255 alpha:1.0f];
     UIColor* darkColor = [UIColor colorWithRed:10.0/255 green:78.0/255 blue:108.0/255 alpha:1.0f];
