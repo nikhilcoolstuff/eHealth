@@ -103,6 +103,10 @@
 #pragma mark UITableViewDelegate
 
 -(void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == self.items.count - 1) {
+        [self.navigationController popToRootViewControllerAnimated:YES]; // logout
+        return;
+    }
     [self loadContentAtIndexPath:indexPath];
 }
 

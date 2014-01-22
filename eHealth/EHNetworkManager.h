@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSMutableData *responseData;
 @property (nonatomic, weak) id <EHNetworkManagerDelegate> delegate;
 
--(void) sendRequest;
+-(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password;
 + (EHNetworkManager *)theManager;
 
 @end

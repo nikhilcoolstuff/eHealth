@@ -177,7 +177,7 @@
     
         if (VALID){
             [MBHUDView hudWithBody:@"Logging in..." type:MBAlertViewHUDTypeActivityIndicator hidesAfter:4.0 show:YES];
-            [[EHNetworkManager theManager] sendRequest];
+            [[EHNetworkManager theManager] sendLoginRequestWithId:self.usernameField.text password:self.passwordField.text];
         } else
             [self showAlertWithTitle:@"Error" message:@"Please enter a valid email address"];
     } else {
