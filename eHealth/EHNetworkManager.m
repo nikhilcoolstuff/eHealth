@@ -55,24 +55,24 @@
 //                      success:(SEL)success
 //                       failed:(SEL)failed
 //                      timeout:(float)timeout {
-    
+
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password {
     
-    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/Neuroapp/check.php?func=getUserLogin&t=%@&u=%@&p=%@",kSecureToken,login, password];
-
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserLogin&t=%@&u=%@&p=%@",kSecureToken,login, password];
+    
     NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
-
+    
     // Create url connection and fire request
     NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     
     NSURLResponse * response = nil;
     NSError * error = nil;
-   // request.timeoutInterval = kDefaultTimeout;
+    // request.timeoutInterval = kDefaultTimeout;
     NSData * data = [NSURLConnection sendSynchronousRequest:request
                                           returningResponse:&response
                                                       error:&error];
-    
+    //  NSLog(@"Data is :=@" , response);
     if (error == nil) {
         NSLog(@"Connection Successful");
     } else {
@@ -80,11 +80,72 @@
     }
 }
 
+-(NSData *)getUserDetails:(NSInteger) uid
+{
+    
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserData&t=&t=%@&id=%d",kSecureToken,uid];
+    
+    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
+    
+    // Create url connection and fire request
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    // request.timeoutInterval = kDefaultTimeout;
+    NSData * data = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    //NSLog(@"amit Data = @", data);
+    return data;
+}
+
+-(NSData *)getAllSymptoms
+{
+    
+    
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=centiva123&func=getAllSymptoms&d=1"];
+    
+    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
+    
+    // Create url connection and fire request
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    // request.timeoutInterval = kDefaultTimeout;
+    NSData * data = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    return data;
+}
+
+-(NSData *) getAllPains {
+    
+    
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=centiva123&func=getLevelOfPain"];
+    
+    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
+    
+    // Create url connection and fire request
+    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    // request.timeoutInterval = kDefaultTimeout;
+    NSData * data = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    return data;
+}
 
 #pragma Local Methods
 
 -(void)checkLoginStatuswithResponse:(NSDictionary *)response{
-
+    
     if ([response[@"status"] isEqualToString:@"no"])
         [self showAlertWithTitle:@"Error" message:response[@"msg"]];
     else {
@@ -135,9 +196,9 @@
         
         NSError* error;
         NSDictionary* responseDictionary = [NSJSONSerialization
-                              JSONObjectWithData:self.responseData
-                              options:kNilOptions
-                              error:&error];
+                                            JSONObjectWithData:self.responseData
+                                            options:kNilOptions
+                                            error:&error];
         
         NSLog(@"responseString: %@", responseString);
         [self checkLoginStatuswithResponse:responseDictionary];

@@ -20,6 +20,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *loginButton;
 
 @property (nonatomic, weak) IBOutlet UIButton * forgotButton;
+@property (weak, nonatomic) IBOutlet UIButton *signupButton;
 
 @property (nonatomic, weak) IBOutlet UILabel * titleLabel;
 
@@ -42,17 +43,19 @@
 {
     [super viewDidLoad];
     
-    UIColor* mainColor = [UIColor colorWithRed:28.0/255 green:158.0/255 blue:121.0/255 alpha:1.0f];
+    //    UIColor* mainColor = [UIColor colorWithRed:28.0/255 green:158.0/255 blue:121.0/255 alpha:1.0f];
+    UIColor* mainColor = [UIColor colorWithRed:51.0/255 green:204.0/255 blue:255 alpha:1.0f];
     UIColor* darkColor = [UIColor colorWithRed:7.0/255 green:61.0/255 blue:48.0/255 alpha:1.0f];
     
     NSString* fontName = @"Avenir-Book";
     NSString* boldFontName = @"Avenir-Black";
     
-    self.view.backgroundColor = mainColor;
-    
+    // self.view.backgroundColor = mainColor;
+    self.view.backgroundColor =[UIColor whiteColor];
     self.usernameField.delegate = self;
     self.usernameField.tag = 0;
     self.usernameField.backgroundColor = [UIColor whiteColor];
+    
     self.usernameField.layer.cornerRadius = 3.0f;
     self.usernameField.placeholder = @"Email Address";
     self.usernameField.font = [UIFont fontWithName:fontName size:16.0f];
@@ -67,11 +70,12 @@
     self.usernameField.leftViewMode = UITextFieldViewModeAlways;
     self.usernameField.leftView = usernameIconContainer;
     self.usernameField.clearButtonMode = UITextFieldViewModeWhileEditing;
-
+    
     
     self.passwordField.delegate = self;
     self.passwordField.tag = 1;
     self.passwordField.backgroundColor = [UIColor whiteColor];
+    
     self.passwordField.layer.cornerRadius = 3.0f;
     self.passwordField.placeholder = @"Password";
     self.passwordField.font = [UIFont fontWithName:fontName size:16.0f];
@@ -88,31 +92,39 @@
     self.passwordField.leftViewMode = UITextFieldViewModeAlways;
     self.passwordField.leftView = passwordIconContainer;
     
-    self.loginButton.backgroundColor = darkColor;
+    //  self.loginButton.backgroundColor = darkColor;
+    self.loginButton.backgroundColor = mainColor;
     self.loginButton.layer.cornerRadius = 3.0f;
     self.loginButton.titleLabel.font = [UIFont fontWithName:boldFontName size:20.0f];
     [self.loginButton setTitle:@"LOGIN" forState:UIControlStateNormal];
     [self.loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.loginButton setTitleColor:[UIColor colorWithWhite:1.0f alpha:0.5f] forState:UIControlStateHighlighted];
     
-    self.forgotButton.backgroundColor = [UIColor clearColor];
+    //   self.forgotButton.backgroundColor = [UIColor clearColor];
     self.forgotButton.titleLabel.font = [UIFont fontWithName:fontName size:12.0f];
     [self.forgotButton setTitle:@"Forgot Password?" forState:UIControlStateNormal];
     [self.forgotButton setTitleColor:darkColor forState:UIControlStateNormal];
     [self.forgotButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.5] forState:UIControlStateHighlighted];
     
-    self.titleLabel.textColor =  [UIColor whiteColor];
+    self.signupButton.titleLabel.font = [UIFont fontWithName:fontName size:12.0f];
+    [self.signupButton setTitle:@"Sign Up ?" forState:UIControlStateNormal];
+    [self.signupButton setTitleColor:darkColor forState:UIControlStateNormal];
+    [self.signupButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.5] forState:UIControlStateHighlighted];
+    
+    // self.titleLabel.textColor =  [UIColor whiteColor];
+    self.titleLabel.textColor=mainColor;
     self.titleLabel.font =  [UIFont fontWithName:boldFontName size:24.0f];
     self.titleLabel.text = @"GOOD TO SEE YOU";
     
-    self.subTitleLabel.textColor =  [UIColor whiteColor];
+    //   self.subTitleLabel.textColor =  [UIColor whiteColor];
+    self.subTitleLabel.textColor=mainColor;
     self.subTitleLabel.font =  [UIFont fontWithName:fontName size:14.0f];
     self.subTitleLabel.text = @"Welcome back, please login below";
     
 }
 
 -(void)viewWillAppear:(BOOL)animated{
- 
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userIsValid:)
                                                  name:kLoginSuccess
@@ -121,15 +133,19 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
- 
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-
+    
 }
 
 #pragma actions
 
 - (IBAction)loginAction:(id)sender {
+    // [self pains];
+    
+    // [self symptoms];
     [self loginProcess];
+    
 }
 
 - (IBAction)forgotAction:(id)sender {
@@ -149,7 +165,7 @@
 }
 
 
-#pragma textField Delegate methods 
+#pragma textField Delegate methods
 
 -(BOOL)textFieldShouldReturn:(UITextField*)textField;
 {
@@ -170,17 +186,19 @@
 #pragma local Methods
 
 -(void) loginProcess {
-
+    
     if (self.usernameField.text.length && self.passwordField.text.length) {
-    
+        
         BOOL VALID = [self NSStringIsValidEmail:self.usernameField.text];
-    
+        
         if (VALID){
             [MBHUDView hudWithBody:@"Logging in..." type:MBAlertViewHUDTypeActivityIndicator hidesAfter:4.0 show:YES];
             [[EHNetworkManager theManager] sendLoginRequestWithId:self.usernameField.text password:self.passwordField.text];
+            
         } else
             [self showAlertWithTitle:@"Error" message:@"Please enter a valid email address"];
     } else {
+        
         [self showAlertWithTitle:@"Error" message:@"User name or password cannot be blank"];
     }
 }
@@ -189,21 +207,32 @@
     //TODO: logic to forgot password
 }
 
--(void) showAlertWithTitle:(NSString *)title message:(NSString *) message {
-
-    MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:title detailText:message cancelTitle:@"OK" cancelBlock:^{
-        [self.usernameField becomeFirstResponder];
-    }];
- 
-    [alert addToDisplayQueue];
-
+-(void) symptoms
+{
+    [[EHNetworkManager theManager] getAllSymptoms];
+}
+-(void) pains
+{
+    [[EHNetworkManager theManager] getAllPains];
 }
 
 
-#pragma network manager delegate 
+-(void) showAlertWithTitle:(NSString *)title message:(NSString *) message {
+    
+    MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:title detailText:message cancelTitle:@"OK" cancelBlock:^{
+        [self.usernameField becomeFirstResponder];
+    }];
+    
+    [alert addToDisplayQueue];
+    
+}
+
+
+#pragma network manager delegate
 
 -(void) userIsValid:(NSNotification *) notification {
-
+    
+    NSLog(@"Notification from userIdValid : %@",notification);
     // login authenticated
     if (!notification) {
         return;
@@ -211,9 +240,9 @@
     NSLog(@"login has been authenticated");
     //SFSlideMenuRootViewController
     
-  //  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle: nil];
-  //  UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"slideMenuRootVC"];
-  //  [self.navigationController pushViewController:vc animated:YES];
+    //  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle: nil];
+    //  UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"slideMenuRootVC"];
+    //  [self.navigationController pushViewController:vc animated:YES];
     //[self presentViewController:vc animated:YES completion:nil];
     [self performSegueWithIdentifier:@"loginSuccess" sender:self];
 }

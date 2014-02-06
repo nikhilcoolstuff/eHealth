@@ -8,6 +8,7 @@
 
 #import "EHSideController.h"
 #import "EHViewController.h"
+#import "EHNetworkManager.h"
 
 @interface EHSideController ()
 
@@ -25,6 +26,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSData * userData = [[EHNetworkManager theManager] getUserDetails:2];
+    //  NSString *responseString = [[NSString alloc] initWithData:userData encoding:NSUTF8StringEncoding];
+    
+    NSError* error;
+    NSDictionary* responseDictionary = [NSJSONSerialization
+                                        JSONObjectWithData:userData
+                                        options:kNilOptions
+                                        error:&error];
+    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.navigationController.topViewController.navigationController.navigationBarHidden = NO;
@@ -43,22 +54,32 @@
     
     self.profileNameLabel.textColor = [UIColor whiteColor];
     self.profileNameLabel.font = [UIFont fontWithName:fontName size:14.0f];
-    self.profileNameLabel.text = @"Lena Llellywyngot";
+    
+    NSString *s = responseDictionary[@"first_name"];
+    s = [s stringByAppendingString: @" "];
+    s = [s stringByAppendingString: responseDictionary[@"last_name"]];
+    
+    self.profileNameLabel.text = s;
     
     self.profileLocationLabel.textColor = mainColor;
     self.profileLocationLabel.font = [UIFont fontWithName:boldFontName size:12.0f];
-    self.profileLocationLabel.text = @"London, UK";
+    self.profileLocationLabel.text = responseDictionary[@"email"];
     
-    self.profileImageView.image = [UIImage imageNamed:@"profile-1.jpg"];
+     NSString *uPicture = @"http://www.centiva.co/newneuro/files/profile/";
+  //  uPicture = [uPicture stringByAppendingString: responseDictionary[@"user_image"]];
+  //  NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: uPicture]];
+    
+    //   self.profileImageView.image = [UIImage imageNamed:@"profile-1.jpg"];
+  //  self.profileImageView.image = [UIImage imageWithData:imageData];
     self.profileImageView.clipsToBounds = YES;
     self.profileImageView.layer.borderWidth = 4.0f;
     self.profileImageView.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.5f].CGColor;
     self.profileImageView.layer.cornerRadius = 35.0f;
     
     
-    NSDictionary* object1 = [NSDictionary dictionaryWithObjects:@[ @"Inbox", @"7", @"envelope" ] forKeys:@[ @"title", @"count", @"icon" ]];
-    NSDictionary* object2 = [NSDictionary dictionaryWithObjects:@[ @"Updates", @"7", @"check" ] forKeys:@[ @"title", @"count", @"icon" ]];
-    NSDictionary* object3 = [NSDictionary dictionaryWithObjects:@[ @"Profile", @"0", @"user" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object1 = [NSDictionary dictionaryWithObjects:@[ @"Inbox", @"0", @"envelope" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object2 = [NSDictionary dictionaryWithObjects:@[ @"Updates", @"0", @"check" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object3 = [NSDictionary dictionaryWithObjects:@[ @"My Account", @"0", @"user" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object4 = [NSDictionary dictionaryWithObjects:@[ @"Create Event", @"0", @"account" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object5 = [NSDictionary dictionaryWithObjects:@[ @"Settings", @"0", @"settings" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object6 = [NSDictionary dictionaryWithObjects:@[ @"Logout", @"0", @"arrow" ] forKeys:@[ @"title", @"count", @"icon" ]];
@@ -84,23 +105,23 @@
             break;
         case 1:
             segueID = @"slider";
-
+            
             break;
         case 2:
             segueID = @"profile";
-
+            
             break;
         case 3:
             segueID = @"createEvent";
-
+            
             break;
         case 4:
             segueID = @"settings";
-
+            
             break;
         case 5:
             segueID = @"slider";
-
+            
             break;
             
         default:
@@ -140,7 +161,7 @@
 }
 
 -(void) prepareForSwitchToContentViewController:(UINavigationController *)content{
- 
+    
     UIViewController* controller = [content.viewControllers objectAtIndex:0];
     if ([controller isKindOfClass:[EHViewController class]]) {
         EHViewController* mainViewController = (EHViewController*)controller;

@@ -10,4 +10,8 @@
 
 @interface EHCreateEventController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UITableView *symptomsTableView;
+@property (weak, nonatomic) IBOutlet UITextView *eventDescTextView;
+@property (weak, nonatomic) IBOutlet UITableView *levelsTableView;
+@property (weak, nonatomic) IBOutlet UITextView *extraDetailsTextView;
 @end

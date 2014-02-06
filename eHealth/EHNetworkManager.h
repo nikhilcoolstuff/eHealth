@@ -15,6 +15,10 @@
 @property (nonatomic, weak) id <EHNetworkManagerDelegate> delegate;
 
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password;
+-(NSData *)getUserDetails:(NSInteger) uid;
+-(NSData *)getAllSymptoms;
+-(NSData *) getAllPains;
+
 + (EHNetworkManager *)theManager;
 
 @end
