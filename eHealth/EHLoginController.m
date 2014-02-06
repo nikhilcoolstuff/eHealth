@@ -10,6 +10,8 @@
 #import "MBFlatAlertView.h"
 #import "MBHUDView.h"
 #define kLoginSuccess @"loginSuccessfulNotification"
+#define kSignupURL @"http://centiva.co/newneuro/register.php"
+#define kForgotPassword @"http://centiva.co/newneuro/forgot_password.php"
 
 @interface EHLoginController ()
 
@@ -149,7 +151,11 @@
 }
 
 - (IBAction)forgotAction:(id)sender {
-    [self forgotPasswordProcess];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kForgotPassword]];
+}
+
+- (IBAction)signUP:(id)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kSignupURL]];
 }
 
 #pragma validate email
@@ -201,10 +207,6 @@
         
         [self showAlertWithTitle:@"Error" message:@"User name or password cannot be blank"];
     }
-}
-
--(void) forgotPasswordProcess {
-    //TODO: logic to forgot password
 }
 
 -(void) symptoms
