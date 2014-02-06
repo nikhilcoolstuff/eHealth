@@ -222,7 +222,7 @@
 -(void) showAlertWithTitle:(NSString *)title message:(NSString *) message {
     
     MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:title detailText:message cancelTitle:@"OK" cancelBlock:^{
-        [self.usernameField becomeFirstResponder];
+        //[self.usernameField becomeFirstResponder];
     }];
     
     [alert addToDisplayQueue];

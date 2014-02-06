@@ -24,6 +24,8 @@
 		2F375CD5188FE9550077657E /* EHProfileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F375CD4188FE9550077657E /* EHProfileController.m */; };
 		2F375CDB188FEA8A0077657E /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F375CDA188FEA8A0077657E /* user.png */; };
 		2F375CE0189003B10077657E /* profile.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2F375CDF189003B10077657E /* profile.jpg */; };
+		2F4176FD18A37992003407C0 /* neuroapp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F4176FC18A37992003407C0 /* neuroapp@2x.png */; };
+		2F4176FF18A379BF003407C0 /* neuroapp.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F4176FE18A379BF003407C0 /* neuroapp.png */; };
 		2FC33ABD188A60A100073D89 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC33ABC188A60A100073D89 /* Foundation.framework */; };
 		2FC33ABF188A60A100073D89 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC33ABE188A60A100073D89 /* CoreGraphics.framework */; };
 		2FC33AC1188A60A100073D89 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FC33AC0188A60A100073D89 /* UIKit.framework */; };
@@ -118,6 +120,8 @@
 		2F375CD4188FE9550077657E /* EHProfileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHProfileController.m; sourceTree = "<group>"; };
 		2F375CDA188FEA8A0077657E /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		2F375CDF189003B10077657E /* profile.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = profile.jpg; sourceTree = "<group>"; };
+		2F4176FC18A37992003407C0 /* neuroapp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "neuroapp@2x.png"; sourceTree = "<group>"; };
+		2F4176FE18A379BF003407C0 /* neuroapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = neuroapp.png; sourceTree = "<group>"; };
 		2FC33AB9188A60A100073D89 /* eHealth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eHealth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FC33ABC188A60A100073D89 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2FC33ABE188A60A100073D89 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -387,6 +391,8 @@
 		2FC33AFF188B57A800073D89 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				2F4176FE18A379BF003407C0 /* neuroapp.png */,
+				2F4176FC18A37992003407C0 /* neuroapp@2x.png */,
 				2F375CDA188FEA8A0077657E /* user.png */,
 				2F375CC6188FDF620077657E /* menuIcon.png */,
 				2F375CC7188FDF620077657E /* menuIcon@2x.png */,
@@ -598,6 +604,7 @@
 				2FC33B4F188BE5C100073D89 /* settings.png in Resources */,
 				2F375CE0189003B10077657E /* profile.jpg in Resources */,
 				2FC33B50188BE5C100073D89 /* settings@2x.png in Resources */,
+				2F4176FD18A37992003407C0 /* neuroapp@2x.png in Resources */,
 				2FC33B41188BE52800073D89 /* profile-1.jpg in Resources */,
 				2FC33B4D188BE5C100073D89 /* account.png in Resources */,
 				2FC33AD3188A60A100073D89 /* Main_iPad.storyboard in Resources */,
@@ -609,6 +616,7 @@
 				2FC33B02188B57B100073D89 /* mail.png in Resources */,
 				2F375CDB188FEA8A0077657E /* user.png in Resources */,
 				2FC33AD8188A60A100073D89 /* Images.xcassets in Resources */,
+				2F4176FF18A379BF003407C0 /* neuroapp.png in Resources */,
 				2FC33B03188B57B100073D89 /* mail@2x.png in Resources */,
 				2FC33AD0188A60A100073D89 /* Main_iPhone.storyboard in Resources */,
 				2FC33AC7188A60A100073D89 /* InfoPlist.strings in Resources */,
