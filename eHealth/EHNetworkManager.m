@@ -58,7 +58,7 @@
 
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password {
     
-    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserLogin&t=%@&u=%@&p=%@",kSecureToken,login, password];
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserLogin&t=%@&e=%@&p=%@",kSecureToken,login, password];
     
     NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
