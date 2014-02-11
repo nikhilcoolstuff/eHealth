@@ -37,8 +37,8 @@
 
 -(void)awakeFromNib{
     
-    self.mainColor = [UIColor colorWithRed:47.0/255 green:168.0/255 blue:228.0/255 alpha:1.0f];
-    self.darkColor = [UIColor colorWithRed:10.0/255 green:78.0/255 blue:108.0/255 alpha:1.0f];
+    self.mainColor = [UIColor clearColor];
+    self.darkColor = [UIColor clearColor];
     
     self.bgView.backgroundColor = self.darkColor;
     

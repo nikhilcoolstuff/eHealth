@@ -12,18 +12,13 @@
 
 @interface EHSideController ()
 
-@property (nonatomic, weak) IBOutlet UILabel* profileNameLabel;
-
-@property (nonatomic, weak) IBOutlet UILabel* profileLocationLabel;
-
-@property (nonatomic, weak) IBOutlet UIImageView* profileImageView;
-
 @end
 
 @implementation EHSideController
 
 
 - (void)viewDidLoad
+
 {
     [super viewDidLoad];
     
@@ -38,49 +33,52 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.navigationController.topViewController.navigationController.navigationBarHidden = NO;
-    self.navigationController.topViewController.title = @"Selector";
-    self.navigationController.topViewController.navigationController.navigationBar.backgroundColor = [UIColor redColor];
+    self.tableView.opaque = NO;
     
-    UIColor* mainColor = [UIColor colorWithRed:47.0/255 green:168.0/255 blue:228.0/255 alpha:1.0f];
-    UIColor* darkColor = [UIColor colorWithRed:10.0/255 green:78.0/255 blue:108.0/255 alpha:1.0f];
+    self.view.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor = [UIColor clearColor];
     
-    self.view.backgroundColor = darkColor;
-    self.tableView.backgroundColor = darkColor;
-    self.tableView.separatorColor = [UIColor clearColor];
+   // self.tableView.backgroundColor = darkColor;
+   // self.tableView.separatorColor = [UIColor clearColor];
     
-    NSString* fontName = @"Avenir-Black";
-    NSString* boldFontName = @"Avenir-BlackOblique";
+    self.tableView.separatorColor = [UIColor colorWithRed:150/255.0f green:161/255.0f blue:177/255.0f alpha:1.0f];
+    self.tableView.tableHeaderView = ({
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 184.0f)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 40, 100, 100)];
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        imageView.image = [UIImage imageNamed:@"profile.jpg"];
+        imageView.layer.masksToBounds = YES;
+        imageView.layer.cornerRadius = 50.0;
+        imageView.layer.borderColor = [UIColor whiteColor].CGColor;
+        imageView.layer.borderWidth = 3.0f;
+        imageView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        imageView.layer.shouldRasterize = YES;
+        imageView.clipsToBounds = YES;
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
+
+        NSString *s = responseDictionary[@"first_name"];
+        s = [s stringByAppendingString: @" "];
+        s = [s stringByAppendingString: responseDictionary[@"last_name"]];
+
+        label.text = s;
+        label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
+        label.backgroundColor = [UIColor clearColor];
+        label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
+        [label sizeToFit];
+        label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
+        [view addSubview:imageView];
+        [view addSubview:label];
+        view;
+    });
     
-    self.profileNameLabel.textColor = [UIColor whiteColor];
-    self.profileNameLabel.font = [UIFont fontWithName:fontName size:14.0f];
+    NSString *uPicture = @"http://www.centiva.co/newneuro/files/profile/";
     
-    NSString *s = responseDictionary[@"first_name"];
-    s = [s stringByAppendingString: @" "];
-    s = [s stringByAppendingString: responseDictionary[@"last_name"]];
-    
-    self.profileNameLabel.text = s;
-    
-    self.profileLocationLabel.textColor = mainColor;
-    self.profileLocationLabel.font = [UIFont fontWithName:boldFontName size:12.0f];
-    self.profileLocationLabel.text = responseDictionary[@"email"];
-    
-     NSString *uPicture = @"http://www.centiva.co/newneuro/files/profile/";
-  //  uPicture = [uPicture stringByAppendingString: responseDictionary[@"user_image"]];
-  //  NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: uPicture]];
-    
-    //   self.profileImageView.image = [UIImage imageNamed:@"profile-1.jpg"];
-  //  self.profileImageView.image = [UIImage imageWithData:imageData];
-    self.profileImageView.clipsToBounds = YES;
-    self.profileImageView.layer.borderWidth = 4.0f;
-    self.profileImageView.layer.borderColor = [UIColor colorWithWhite:1.0f alpha:0.5f].CGColor;
-    self.profileImageView.layer.cornerRadius = 35.0f;
-    
-    
-    NSDictionary* object1 = [NSDictionary dictionaryWithObjects:@[ @"Inbox", @"0", @"envelope" ] forKeys:@[ @"title", @"count", @"icon" ]];
-    NSDictionary* object2 = [NSDictionary dictionaryWithObjects:@[ @"Updates", @"0", @"check" ] forKeys:@[ @"title", @"count", @"icon" ]];
-    NSDictionary* object3 = [NSDictionary dictionaryWithObjects:@[ @"My Account", @"0", @"user" ] forKeys:@[ @"title", @"count", @"icon" ]];
-    NSDictionary* object4 = [NSDictionary dictionaryWithObjects:@[ @"Create Event", @"0", @"account" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object1 = [NSDictionary dictionaryWithObjects:@[ @"My Messages", @"0", @"envelope" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object2 = [NSDictionary dictionaryWithObjects:@[ @"Timeline", @"0", @"check" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object3 = [NSDictionary dictionaryWithObjects:@[ @"Profile", @"0", @"user" ] forKeys:@[ @"title", @"count", @"icon" ]];
+    NSDictionary* object4 = [NSDictionary dictionaryWithObjects:@[ @"Create New Event", @"0", @"account" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object5 = [NSDictionary dictionaryWithObjects:@[ @"Settings", @"0", @"settings" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object6 = [NSDictionary dictionaryWithObjects:@[ @"Logout", @"0", @"arrow" ] forKeys:@[ @"title", @"count", @"icon" ]];
     

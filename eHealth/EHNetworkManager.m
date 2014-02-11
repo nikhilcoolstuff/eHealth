@@ -146,6 +146,11 @@
 
 -(void)checkLoginStatuswithResponse:(NSDictionary *)response{
     
+    // temp login to always allow login for testing.
+     [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
+        return;
+    //
+
     if ([response[@"status"] isEqualToString:@"no"])
         [self showAlertWithTitle:@"Error" message:response[@"msg"]];
     else {
