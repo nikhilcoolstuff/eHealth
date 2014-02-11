@@ -60,7 +60,8 @@
     
     self.dob.textColor =  mainColor;
     self.dob.font =  [UIFont fontWithName:fontName size:14.0f];
-    self.dob.text = [@"DOB : " stringByAppendingString:responseDictionary[@"dob"]];
+    if (responseDictionary[@"dob"])
+        self.dob.text = [@"DOB : " stringByAppendingString:responseDictionary[@"dob"]];
     
     self.ageLabel.textColor =  mainColor;
     self.ageLabel.font =  [UIFont fontWithName:fontName size:14.0f];
@@ -69,15 +70,19 @@
     
     self.registerDateLabel.textColor =  mainColor;
     self.registerDateLabel.font =  [UIFont fontWithName:fontName size:14.0f];
-    self.registerDateLabel.text = [@"Registered Date : " stringByAppendingString:responseDictionary[@"register_date"]];
+    
+    if (responseDictionary[@"register_date"])
+        self.registerDateLabel.text = [@"Registered Date : " stringByAppendingString:responseDictionary[@"register_date"]];
     
     self.cityLabel.textColor =  mainColor;
     self.cityLabel.font =  [UIFont fontWithName:fontName size:14.0f];
-    self.cityLabel.text = [@"City : " stringByAppendingString:responseDictionary[@"city"]];
+    if (responseDictionary[@"city"])
+        self.cityLabel.text = [@"City : " stringByAppendingString:responseDictionary[@"city"]];
     
     self.stateLabel.textColor =  mainColor;
     self.stateLabel.font =  [UIFont fontWithName:fontName size:14.0f];
-    self.stateLabel.text = [@"State : " stringByAppendingString:responseDictionary[@"state"]];
+    if (responseDictionary[@"state"])
+        self.stateLabel.text = [@"State : " stringByAppendingString:responseDictionary[@"state"]];
     
     //    UIFont* countLabelFont = [UIFont fontWithName:boldItalicFontName size:20.0f];
     //    UIColor* countColor = mainColor;
@@ -118,7 +123,8 @@
     //    self.friendLabel.text = @"My Doctors";
     //
     NSString *uPicture = @"http://www.centiva.co/newneuro/files/profile/";
-    uPicture = [uPicture stringByAppendingString: responseDictionary[@"user_image"]];
+    if (responseDictionary[@"user_image"])
+        uPicture = [uPicture stringByAppendingString: responseDictionary[@"user_image"]];
     NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: uPicture]];
     
     self.profileImageView.image = [UIImage imageWithData: imageData];
@@ -147,7 +153,6 @@
     
     self.scrollView.contentSize = CGSizeMake(320, 590);
     self.scrollView.backgroundColor = [UIColor whiteColor];
-    
     
 }
 
