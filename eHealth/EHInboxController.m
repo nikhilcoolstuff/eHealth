@@ -26,7 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.topViewController.title = @"Inbox";
+    self.navigationController.topViewController.title = @"My Messages";
 	// Do any additional setup after loading the view.
 }
 
