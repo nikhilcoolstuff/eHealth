@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JSMessagesViewController.h"
 
-@interface EHInboxController : UIViewController
+@interface EHInboxController : JSMessagesViewController <JSMessagesViewDelegate, JSMessagesViewDataSource>
 
 @end
