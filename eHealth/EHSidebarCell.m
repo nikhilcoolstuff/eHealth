@@ -43,7 +43,9 @@
     self.bgView.backgroundColor = self.darkColor;
     
     self.topSeparator.backgroundColor = [UIColor clearColor];
-    self.bottomSeparator.backgroundColor = [UIColor colorWithWhite:0.9f alpha:0.2f];
+    self.bottomSeparator.backgroundColor = [UIColor clearColor];
+    
+   // self.bottomSeparator.backgroundColor = [UIColor colorWithWhite:0.9f alpha:0.2f];
     
     NSString* boldFontName = @"Avenir-Black";
     
