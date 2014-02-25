@@ -7,8 +7,7 @@
 //
 
 #import "EHNetworkManager.h"
-#import "MBFlatAlertView.h"
-#define kLoginSuccess @"loginSuccessfulNotification"
+#import "EHAppDelegate.h"
 #define kSecureToken @"centiva123"
 #define kDefaultTimeout 120.0f // in seconds
 #define kMaxOperationNumber 10
@@ -18,7 +17,8 @@
 @property (nonatomic, strong) NSOperationQueue* queue;
 @property (nonatomic, assign) float defaultTimeout;
 @property (nonatomic, strong) NSMutableURLRequest* request;
-
+@property (nonatomic, strong, readwrite) NSMutableDictionary *responseDictionary;
+@property (nonatomic, strong) NSMutableData *responseData;
 @end
 
 @implementation EHNetworkManager
@@ -48,18 +48,19 @@
     return self;
 }
 
-//- (void)sendRequestWithMethod:(NSString *)method
-//                     endPoint:(NSString *)endPoint
-//                     httpBody:(NSDictionary *)body
-//                       target:(id)target
-//                      success:(SEL)success
-//                       failed:(SEL)failed
-//                      timeout:(float)timeout {
-
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password {
     
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserLogin&t=%@&e=%@&p=%@",kSecureToken,login, password];
-    
+    [self makeServerRequestforServiceUrl:URL];
+}
+
+-(void) retrieveUserMessages:(NSString *) userId {
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=%@&func=getAllUserMessages&limit=0&id=%@",kSecureToken, userId];
+    [self makeServerRequestforServiceUrl:URL];
+}
+
+-(void) makeServerRequestforServiceUrl:(NSString *)URL {
+ 
     NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
     
@@ -76,8 +77,9 @@
     if (error == nil) {
         NSLog(@"Connection Successful");
     } else {
-        [self showAlertWithTitle:@"Error" message:@"Unable to connect"];
+        [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"Unable to connect"];
     }
+    
 }
 
 -(NSData *)getUserDetails:(NSInteger) uid
@@ -103,7 +105,6 @@
 
 -(NSData *)getAllSymptoms
 {
-    
     
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=centiva123&func=getAllSymptoms&d=1"];
     
@@ -142,34 +143,6 @@
     return data;
 }
 
-#pragma Local Methods
-
--(void)checkLoginStatuswithResponse:(NSDictionary *)response{
-    
-    // temp login to always allow login for testing.
-     [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
-        return;
-    //
-
-    if ([response[@"status"] isEqualToString:@"no"])
-        [self showAlertWithTitle:@"Error" message:response[@"msg"]];
-    else {
-        NSLog(@"login success!");
-        //notify others when login is successful.
-        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccess object:nil];
-    }
-}
-
-#pragma alerts
-
--(void) showAlertWithTitle:(NSString*)title message:(NSString *)message {
-    
-    MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:title detailText:message cancelTitle:@"OK" cancelBlock:^{
-    }];
-    
-    [alert addToDisplayQueue];
-}
-
 
 #pragma mark - NSURLConnectionDelegate Methods
 
@@ -197,16 +170,11 @@
     NSLog(@"did finish loading");
     if (connection)
     {
-        NSString *responseString = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
-        
         NSError* error;
-        NSDictionary* responseDictionary = [NSJSONSerialization
+        self.responseDictionary = [NSJSONSerialization
                                             JSONObjectWithData:self.responseData
                                             options:kNilOptions
                                             error:&error];
-        
-        NSLog(@"responseString: %@", responseString);
-        [self checkLoginStatuswithResponse:responseDictionary];
     }
 }
 

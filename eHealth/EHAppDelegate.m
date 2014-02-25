@@ -8,8 +8,23 @@
 
 #import "EHAppDelegate.h"
 #import "EHNetworkManager.h"
+#import "MBFlatAlertView.h"
 
 @implementation EHAppDelegate
+
++ (EHAppDelegate *)theDelegate
+{
+    // Shared Instance
+    static EHAppDelegate* sharedInstance = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[EHAppDelegate alloc] init];
+    });
+    
+    return sharedInstance;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -43,6 +58,14 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+-(void) showAlertWithTitle:(NSString *)title message:(NSString *) message {
+    
+    MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:title detailText:message cancelTitle:@"OK" cancelBlock:^{
+    }];
+    
+    [alert addToDisplayQueue];
 }
 
 @end

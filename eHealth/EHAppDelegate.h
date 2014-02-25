@@ -11,5 +11,7 @@
 @interface EHAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
++ (EHAppDelegate *)theDelegate;
+-(void) showAlertWithTitle:(NSString *)title message:(NSString *) message;
 
 @end

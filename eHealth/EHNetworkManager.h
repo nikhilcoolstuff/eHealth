@@ -11,20 +11,14 @@
 
 @interface EHNetworkManager : NSObject <NSURLConnectionDelegate>
 
-@property (nonatomic, strong) NSMutableData *responseData;
-@property (nonatomic, weak) id <EHNetworkManagerDelegate> delegate;
+@property (nonatomic, strong, readonly) NSMutableDictionary *responseDictionary;
 
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password;
 -(NSData *)getUserDetails:(NSInteger) uid;
 -(NSData *)getAllSymptoms;
 -(NSData *) getAllPains;
+-(void) retrieveUserMessages:(NSString *) userId;
 
 + (EHNetworkManager *)theManager;
-
-@end
-
-@protocol EHNetworkManagerDelegate <NSObject>
-@optional
--(void) userIsValid;
 
 @end

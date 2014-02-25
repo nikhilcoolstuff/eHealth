@@ -7,8 +7,8 @@
 //
 
 #import "EHLoginController.h"
-#import "MBFlatAlertView.h"
 #import "MBHUDView.h"
+#import "EHAppDelegate.h"
 #define kLoginSuccess @"loginSuccessfulNotification"
 #define kSignupURL @"http://centiva.co/newneuro/register.php"
 #define kForgotPassword @"http://centiva.co/newneuro/forgot_password.php"
@@ -44,6 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
     
     //    UIColor* mainColor = [UIColor colorWithRed:28.0/255 green:158.0/255 blue:121.0/255 alpha:1.0f];
     UIColor* mainColor = [UIColor colorWithRed:51.0/255 green:204.0/255 blue:255 alpha:1.0f];
@@ -126,19 +127,11 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(userIsValid:)
-                                                 name:kLoginSuccess
-                                               object:nil];
-    
+
+    //temp logic for testing other views - nikhil
+   // [self performSegueWithIdentifier:@"loginSuccess" sender:self];
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-}
 
 #pragma actions
 
@@ -202,10 +195,10 @@
             [[EHNetworkManager theManager] sendLoginRequestWithId:self.usernameField.text password:self.passwordField.text];
             
         } else
-            [self showAlertWithTitle:@"Error" message:@"Please enter a valid email address"];
+            [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"Please enter a valid email address"];
     } else {
         
-        [self showAlertWithTitle:@"Error" message:@"User name or password cannot be blank"];
+        [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"User name or password cannot be blank"];
     }
 }
 
@@ -219,34 +212,40 @@
 }
 
 
--(void) showAlertWithTitle:(NSString *)title message:(NSString *) message {
-    
-    MBFlatAlertView *alert = [MBFlatAlertView alertWithTitle:title detailText:message cancelTitle:@"OK" cancelBlock:^{
-        //[self.usernameField becomeFirstResponder];
-    }];
-    
-    [alert addToDisplayQueue];
-    
-}
+#pragma network manager observer methods
 
-
-#pragma network manager delegate
-
--(void) userIsValid:(NSNotification *) notification {
+-(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     
-    NSLog(@"Notification from userIdValid : %@",notification);
-    // login authenticated
-    if (!notification) {
+    if (![object isKindOfClass:[EHNetworkManager class]])
         return;
-    }
-    NSLog(@"login has been authenticated");
-    //SFSlideMenuRootViewController
     
-    //  UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle: nil];
-    //  UIViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"slideMenuRootVC"];
-    //  [self.navigationController pushViewController:vc animated:YES];
-    //[self presentViewController:vc animated:YES completion:nil];
-    [self performSegueWithIdentifier:@"loginSuccess" sender:self];
+    EHNetworkManager *manager = object;
+    if ([manager.responseDictionary[@"service"]  isEqualToString:@"getUserLogin"])
+    {
+        [self checkLoginStatuswithResponse:manager.responseDictionary];
+    }
 }
+
+
+#pragma Local Methods
+
+-(void)checkLoginStatuswithResponse:(NSMutableDictionary *)response{
+    
+    if ([response[@"status"]  isEqualToString:@"no"]) {
+        [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:response[@"msg"]];
+    }
+    else {
+        NSLog(@"login success!");
+        NSDictionary *userData = response[@"data"];
+        // save user credentials on login so user doesnt need to login every time he opens the app.
+        [[NSUserDefaults standardUserDefaults] setValue:userData[@"user_id"] forKey:@"Account"];
+        [[NSUserDefaults standardUserDefaults] setValue:self.usernameField.text forKey:@"Username"];
+        [[NSUserDefaults standardUserDefaults] setValue:self.passwordField.text forKey:@"password"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self performSegueWithIdentifier:@"loginSuccess" sender:self];
+    }
+}
+
 
 @end
