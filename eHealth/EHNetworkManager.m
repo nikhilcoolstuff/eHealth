@@ -49,7 +49,6 @@
 }
 
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password {
-    
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserLogin&t=%@&e=%@&p=%@",kSecureToken,login, password];
     [self makeServerRequestforServiceUrl:URL];
 }
@@ -82,25 +81,12 @@
     
 }
 
--(NSData *)getUserDetails:(NSInteger) uid
+-(void)getUserDetails:(NSString *) uid
 {
     
-    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserData&t=&t=%@&id=%d",kSecureToken,uid];
-    
-    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
-    
-    // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    NSURLResponse * response = nil;
-    NSError * error = nil;
-    // request.timeoutInterval = kDefaultTimeout;
-    NSData * data = [NSURLConnection sendSynchronousRequest:request
-                                          returningResponse:&response
-                                                      error:&error];
-    //NSLog(@"amit Data = @", data);
-    return data;
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserData&t=&t=%@&id=%@",kSecureToken,uid];
+    [self makeServerRequestforServiceUrl:URL];
+
 }
 
 -(NSData *)getAllSymptoms

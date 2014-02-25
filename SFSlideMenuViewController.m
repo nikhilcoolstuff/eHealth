@@ -114,6 +114,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.row == self.items.count - 1) {
+
+        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"Account"];
+        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"Username"];
+        [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"password"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
         [self.navigationController popToRootViewControllerAnimated:YES]; // logout
         return;
     }

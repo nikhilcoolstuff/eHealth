@@ -84,7 +84,7 @@
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type
                        forRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Profile.jpg"]];
+  //  return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Profile.jpg"]];
   //  NSMutableDictionary *message = self.allMyMessagesArray[indexPath.row];
   //  NSString *userType = message[@"user_type"];
   //  if (userType && [userType isEqualToString:@"admin"])

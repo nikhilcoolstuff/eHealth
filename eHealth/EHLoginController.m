@@ -44,8 +44,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
-    
     //    UIColor* mainColor = [UIColor colorWithRed:28.0/255 green:158.0/255 blue:121.0/255 alpha:1.0f];
     UIColor* mainColor = [UIColor colorWithRed:51.0/255 green:204.0/255 blue:255 alpha:1.0f];
     UIColor* darkColor = [UIColor colorWithRed:7.0/255 green:61.0/255 blue:48.0/255 alpha:1.0f];
@@ -128,8 +126,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
 
-    //temp logic for testing other views - nikhil
-   // [self performSegueWithIdentifier:@"loginSuccess" sender:self];
+     NSString * Account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
+    if (Account && Account.length>0)
+        // user is already logged in so simply move on to inbox controller.
+        [self performSegueWithIdentifier:@"loginSuccess" sender:self];
+    else
+        [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 

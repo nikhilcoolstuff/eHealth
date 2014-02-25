@@ -22,15 +22,6 @@
 {
     [super viewDidLoad];
     
-    NSData * userData = [[EHNetworkManager theManager] getUserDetails:2];
-    //  NSString *responseString = [[NSString alloc] initWithData:userData encoding:NSUTF8StringEncoding];
-    
-    NSError* error;
-    NSDictionary* responseDictionary = [NSJSONSerialization
-                                        JSONObjectWithData:userData
-                                        options:kNilOptions
-                                        error:&error];
-    
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.opaque = NO;
@@ -57,11 +48,6 @@
         
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 150, 0, 24)];
 
-        NSString *s = responseDictionary[@"first_name"];
-        s = [s stringByAppendingString: @" "];
-        s = [s stringByAppendingString: responseDictionary[@"last_name"]];
-
-        label.text = s;
         label.font = [UIFont fontWithName:@"HelveticaNeue" size:21];
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor colorWithRed:62/255.0f green:68/255.0f blue:75/255.0f alpha:1.0f];
@@ -73,7 +59,6 @@
         view;
     });
     
-    NSString *uPicture = @"http://www.centiva.co/newneuro/files/profile/";
     
     NSDictionary* object1 = [NSDictionary dictionaryWithObjects:@[ @"My Messages", @"0", @"envelope" ] forKeys:@[ @"title", @"count", @"icon" ]];
     NSDictionary* object2 = [NSDictionary dictionaryWithObjects:@[ @"Timeline", @"0", @"check" ] forKeys:@[ @"title", @"count", @"icon" ]];
