@@ -43,7 +43,8 @@
     self.levelsTableView.dataSource=self;
     self.levelsTableView.tag=2;
     
-    NSData * allsymptoms = [[EHNetworkManager theManager] getAllSymptoms];
+    NSData * allsymptoms;
+    [[EHNetworkManager theManager] getAllSymptoms];
     //     NSString *responseString = [[NSString alloc] initWithData:allsymptoms encoding:NSUTF8StringEncoding];
     
     NSError* errorSymtomps;
@@ -72,7 +73,8 @@
     
     
     //Code for pulling all pains
-    NSData * allpains = [[EHNetworkManager theManager] getAllPains];
+    NSData * allpains;
+    [[EHNetworkManager theManager] getAllPains];
     //  NSString *responseString = [[NSString alloc] initWithData:userData encoding:NSUTF8StringEncoding];
     
     NSError* errorPains;
