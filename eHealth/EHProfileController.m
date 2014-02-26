@@ -28,10 +28,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     NSString * Account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
     [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
-    [[EHNetworkManager theManager] getUserDetails:Account];
-	// Do any additional setup after loading the view.
+    [[EHNetworkManager theManager] getUserDetailsforUser:Account];
+
     self.navigationController.topViewController.title = @"Profile";
     
     UIColor* mainColor = [UIColor colorWithRed:28.0/255 green:158.0/255 blue:121.0/255 alpha:1.0f];
@@ -54,11 +55,9 @@
     self.registerDateLabel.textColor =  mainColor;
     self.registerDateLabel.font =  [UIFont fontWithName:fontName size:14.0f];
     
-    
     self.cityLabel.textColor =  mainColor;
     self.cityLabel.font =  [UIFont fontWithName:fontName size:14.0f];
  
-    
     self.stateLabel.textColor =  mainColor;
     self.stateLabel.font =  [UIFont fontWithName:fontName size:14.0f];
 
@@ -91,6 +90,7 @@
     [view addSubview:divider];
 }
 
+
 #pragma network manager observer methods
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -109,6 +109,7 @@
         }
     }
 }
+
 
 #pragma local methods 
 
