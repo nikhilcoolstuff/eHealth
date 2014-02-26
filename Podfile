@@ -1,3 +1,3 @@
-platform :ios, '7.0'
-
-pod 'JSMessagesViewController',  '~> 3.4.4'
+platform :ios, '6.0'
+pod 'JSMessagesViewController'
+pod 'JSQSystemSoundPlayer'
