@@ -9,9 +9,14 @@
 #import "EHInboxController.h"
 #import "EHNetworkManager.h"
 #import "EHAppDelegate.h"
+#import "JSMessage.h"
 
 @interface EHInboxController ()
 @property (nonatomic, strong) NSMutableArray *allMyMessagesArray;
+@property (nonatomic, strong) NSString *imageUrl;
+@property (strong, nonatomic) NSMutableArray *messages;
+@property (strong, nonatomic) NSDictionary *avatars;
+
 @end
 
 @implementation EHInboxController
@@ -33,8 +38,9 @@
     self.delegate = self;
     self.dataSource = self;
     
-    [[JSBubbleView appearance] setFont:[UIFont systemFontOfSize:16.0f]];
-    
+    [[JSBubbleView appearance] setFont:[UIFont systemFontOfSize:12.0f]];
+    [self setBackgroundColor:[UIColor whiteColor]];
+
     self.title = @"My Messages";
     self.messageInputView.textView.placeHolder = @"Send Message";
     [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
@@ -57,6 +63,15 @@
     //[self.messageInputView reloadInputViews];
     [self.tableView reloadData];
     
+}
+
+-(void) loadBubbleMessageData {
+    
+    self.messages = [NSMutableArray array];
+    for (NSDictionary *messageData in self.allMyMessagesArray) {
+        JSMessage *message = [[JSMessage alloc] initWithText:messageData[@"msg_desc"] sender:messageData[@"first_name"] date:messageData[@"msg_date"]];
+        [self.messages addObject:message];
+    }
 }
 
 
@@ -84,18 +99,17 @@
 
 - (UIImageView *)bubbleImageViewWithType:(JSBubbleMessageType)type
                        forRowAtIndexPath:(NSIndexPath *)indexPath{
-  //  return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Profile.jpg"]];
-  //  NSMutableDictionary *message = self.allMyMessagesArray[indexPath.row];
-  //  NSString *userType = message[@"user_type"];
-  //  if (userType && [userType isEqualToString:@"admin"])
-  //      return JSBubbleMessageTypeIncoming;
-  //  else
-  //      return JSBubbleMessageTypeOutgoing;
-
-    return Nil;
+    NSMutableDictionary *message = self.allMyMessagesArray[indexPath.row];
+    NSString *userType = message[@"user_type"];
+    if (userType && [userType isEqualToString:@"admin"])
+        return [JSBubbleImageViewFactory bubbleImageViewForType:type
+                                                          color:[UIColor js_bubbleBlueColor]];
+    else
+        return [JSBubbleImageViewFactory bubbleImageViewForType:type
+                                                          color:[UIColor js_bubbleLightGrayColor]];
 }
 
-- (JSMessagesViewTimestampPolicy)timestampPolicy{
+/*- (JSMessagesViewTimestampPolicy)timestampPolicy{
     return JSMessagesViewTimestampPolicyAll;
 }
 
@@ -106,6 +120,7 @@
 - (JSMessagesViewSubtitlePolicy)subtitlePolicy{
     return JSMessagesViewSubtitlePolicyAll;
 }
+*/
 
 - (JSMessageInputViewStyle)inputViewStyle{
     return JSMessageInputViewStyleFlat;
@@ -133,16 +148,28 @@
     if(!message[@"user_image"]){
         return nil;
     } else {
-        //UIImageView *avatarImageView = [[UIImageView alloc] initWithImage:message[@"user_image"]];
-        //return avatarImageView;
-        //TODO
-        return nil;
+        
+        NSString *avatarImageUrl = [self.imageUrl stringByAppendingString:message[@"user_image"]];
+        NSURL *url = [NSURL URLWithString:avatarImageUrl];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *img = [[UIImage alloc] initWithData:data];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
+        return imageView;
     }
 }
 
 - (NSString *)subtitleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return @"subtitle";
+    NSMutableDictionary *message = self.allMyMessagesArray[indexPath.row];
+    return message[@"first_name"];
 }
+
+#pragma mark - Messages view delegate: OPTIONAL
+
+- (BOOL)shouldDisplayTimestampForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
 
 - (void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
@@ -166,9 +193,56 @@
     if(cell.subtitleLabel) {
         cell.subtitleLabel.textColor = [UIColor lightGrayColor];
     }
+    
+    #if TARGET_IPHONE_SIMULATOR
+        cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeNone;
+    #else
+        cell.bubbleView.textView.dataDetectorTypes = UIDataDetectorTypeAll;
+    #endif
+
 }
 
-#pragma network manager observer methods 
+//  *** Implement to prevent auto-scrolling when message is added
+//
+- (BOOL)shouldPreventScrollToBottomWhileUserScrolling
+{
+    return YES;
+}
+
+// *** Implemnt to enable/disable pan/tap todismiss keyboard
+//
+- (BOOL)allowsPanToDismissKeyboard
+{
+    return YES;
+}
+
+
+#pragma mark - Messages view data source: REQUIRED
+
+- (JSMessage *)messageForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.messages objectAtIndex:indexPath.row];
+}
+
+- (UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender
+{
+    //return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Profile.jpg"]];
+    NSMutableDictionary *message = self.allMyMessagesArray[indexPath.row];
+    if(!message[@"user_image"]){
+        return nil;
+    } else {
+        
+        NSString *avatarImageUrl = [self.imageUrl stringByAppendingString:message[@"user_image"]];
+        NSURL *url = [NSURL URLWithString:avatarImageUrl];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        UIImage *img = [[UIImage alloc] initWithData:data];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
+        return imageView;
+    }
+
+}
+
+#pragma network manager observer methods
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
     
@@ -180,6 +254,8 @@
     {
         if ([manager.responseDictionary[@"status"] isEqualToString:@"yes"]) {
             self.allMyMessagesArray = manager.responseDictionary[@"data"];
+            [self loadBubbleMessageData];
+            self.imageUrl = manager.responseDictionary[@"url"];
             [self renderAllMessages];
         } else {
             [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:manager.responseDictionary[@"msg"]];
