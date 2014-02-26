@@ -48,85 +48,71 @@
     return self;
 }
 
+
+-(void) makeServerRequestforServiceUrl:(NSString *)URL {
+    
+    // This is a local method to fetch all server data.  Users of the network manager class would eventually call this method to make a service request for the input URL.
+    
+    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    
+    // Create url connection and fire request
+    NSURLConnection *theConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    if (!theConnection) {
+        [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"Error connecting to the network. Please check your network connection and try again"];
+        self.responseDictionary = nil;
+    }
+    
+    NSURLResponse * response = nil;
+    NSError * error = nil;
+    [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    if (error == nil) {
+        NSLog(@"Connection Successful");
+    } else {
+        [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"An error occured while fetching data."];
+    }
+}
+
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password {
+    
+    // Check User Login
+    
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserLogin&t=%@&e=%@&p=%@",kSecureToken,login, password];
     [self makeServerRequestforServiceUrl:URL];
 }
 
 -(void) retrieveUserMessages:(NSString *) userId {
+
+    // Check User Messages
+
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=%@&func=getAllUserMessages&limit=0&id=%@",kSecureToken, userId];
     [self makeServerRequestforServiceUrl:URL];
 }
 
--(void) makeServerRequestforServiceUrl:(NSString *)URL {
- 
-    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
-    
-    // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    NSURLResponse * response = nil;
-    NSError * error = nil;
-    // request.timeoutInterval = kDefaultTimeout;
-    NSData * data = [NSURLConnection sendSynchronousRequest:request
-                                          returningResponse:&response
-                                                      error:&error];
-    //  NSLog(@"Data is :=@" , response);
-    if (error == nil) {
-        NSLog(@"Connection Successful");
-    } else {
-        [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"Unable to connect"];
-    }
-    
-}
-
--(void)getUserDetails:(NSString *) uid
+-(void)getUserDetailsforUser:(NSString *)userId
 {
-    
-    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserData&t=&t=%@&id=%@",kSecureToken,uid];
+    // retrieve user profile
+
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserData&t=&t=%@&id=%@",kSecureToken,userId];
     [self makeServerRequestforServiceUrl:URL];
-
 }
 
--(NSData *)getAllSymptoms
+-(void)getAllSymptoms
 {
+    // retrieve user headache symptoms.
     
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=centiva123&func=getAllSymptoms&d=1"];
-    
-    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
-    
-    // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    NSURLResponse * response = nil;
-    NSError * error = nil;
-    // request.timeoutInterval = kDefaultTimeout;
-    NSData * data = [NSURLConnection sendSynchronousRequest:request
-                                          returningResponse:&response
-                                                      error:&error];
-    return data;
+    [self makeServerRequestforServiceUrl:URL];
 }
 
--(NSData *) getAllPains {
+-(void) getAllPains {
     
-    
+    // retrieve user pain levels.
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=centiva123&func=getLevelOfPain"];
-    
-    NSString *properlyEscapedURL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:properlyEscapedURL]];
-    
-    // Create url connection and fire request
-    NSURLConnection *conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
-    NSURLResponse * response = nil;
-    NSError * error = nil;
-    // request.timeoutInterval = kDefaultTimeout;
-    NSData * data = [NSURLConnection sendSynchronousRequest:request
-                                          returningResponse:&response
-                                                      error:&error];
-    return data;
+    [self makeServerRequestforServiceUrl:URL];
 }
 
 
@@ -134,9 +120,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    // A response has been received
-    
-	// every time we get an response it might be a forward, so we discard what data we have
+    // A response has been received. Every time we get an response it might be a forward, so we discard what data we have
     
     self.responseData = [[NSMutableData alloc] init];
     NSLog(@"did receive response");
@@ -145,6 +129,7 @@
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     // Append the new data to the instance variable you declared
+    
     [self.responseData appendData:data];
     NSLog(@"did receive data");
 }
@@ -152,8 +137,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     // The request is complete and data has been received
-    // You can parse the stuff in your instance variable now
-    NSLog(@"did finish loading");
+   
     if (connection)
     {
         NSError* error;
@@ -162,22 +146,14 @@
                                             options:kNilOptions
                                             error:&error];
     }
+    NSLog(@"did finish loading");
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-}
+    
+    // an error occured while making the request.
+    [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"Error connecting to the server."];
 
--(NSCachedURLResponse *)connection:(NSURLConnection *)connection
-                 willCacheResponse:(NSCachedURLResponse *)cachedResponse
-{
-    // Return nil to indicate not necessary to store a cached response for this connection
-    return nil;
-}
-
-
-#pragma mark - NSURLConnectionDataDelegate Methods
-
-- (void)connection:(NSURLConnection *)connection didSendBodyData:(NSInteger)bytesWritten totalBytesWritten:(NSInteger)totalBytesWritten totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
 }
 
 

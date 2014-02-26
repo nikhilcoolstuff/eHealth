@@ -14,9 +14,9 @@
 @property (nonatomic, strong, readonly) NSMutableDictionary *responseDictionary;
 
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password;
--(void)getUserDetails:(NSString *) uid; 
--(NSData *)getAllSymptoms;
--(NSData *) getAllPains;
+-(void)getUserDetailsforUser:(NSString *)userId;
+-(void)getAllSymptoms;
+-(void) getAllPains;
 -(void) retrieveUserMessages:(NSString *) userId;
 
 + (EHNetworkManager *)theManager;
