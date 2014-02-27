@@ -40,7 +40,8 @@
     
     [[JSBubbleView appearance] setFont:[UIFont systemFontOfSize:12.0f]];
     [self setBackgroundColor:[UIColor whiteColor]];
-
+    self.sender = @"admin";
+    
     self.title = @"My Messages";
     self.messageInputView.textView.placeHolder = @"Send Message";
     [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
@@ -52,6 +53,7 @@
     NSString * Account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
 
     [[EHNetworkManager theManager] retrieveUserMessages:Account];
+    [self scrollToBottomAnimated:NO];
 
 }
 
@@ -83,8 +85,24 @@
     
 }
 
-- (void)didSendText:(NSString *)text{
-    [self.messageInputView reloadInputViews];
+#pragma mark - Messages view delegate: REQUIRED
+
+- (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date
+{
+    if ((self.messages.count - 1) % 2) {
+        [JSMessageSoundEffect playMessageSentSound];
+    }
+    else {
+        // for demo purposes only, mimicing received messages
+        [JSMessageSoundEffect playMessageReceivedSound];
+        sender = @"user";
+        //TODO - replace this with current user name
+    }
+    
+    [self.messages addObject:[[JSMessage alloc] initWithText:text sender:sender date:date]];
+    
+    [self finishSend];
+    [self scrollToBottomAnimated:YES];
 }
 
 - (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath{
