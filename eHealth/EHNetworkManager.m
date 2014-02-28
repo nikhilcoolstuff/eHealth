@@ -87,7 +87,8 @@
 -(void) retrieveUserMessages:(NSString *) userId {
 
     // Check User Messages
-
+    //temp testing
+    userId = @"15";
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=%@&func=getAllUserMessages&limit=0&id=%@",kSecureToken, userId];
     [self makeServerRequestforServiceUrl:URL];
 }

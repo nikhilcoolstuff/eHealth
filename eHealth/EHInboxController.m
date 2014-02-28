@@ -10,13 +10,13 @@
 #import "EHNetworkManager.h"
 #import "EHAppDelegate.h"
 #import "JSMessage.h"
+#define kBgQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 @interface EHInboxController ()
 @property (nonatomic, strong) NSMutableArray *allMyMessagesArray;
 @property (nonatomic, strong) NSString *imageUrl;
 @property (strong, nonatomic) NSMutableArray *messages;
-@property (strong, nonatomic) NSDictionary *avatars;
-
+@property (strong, nonatomic) UIImageView *defaultProfileImageView;
 @end
 
 @implementation EHInboxController
@@ -32,24 +32,26 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    self.allMyMessagesArray = [NSMutableArray new];
-    self.navigationController.topViewController.title = @"My Messages";
     self.delegate = self;
     self.dataSource = self;
+    [super viewDidLoad];
+    self.allMyMessagesArray = [[NSMutableArray alloc] init];
+    self.navigationController.topViewController.title = @"My Messages";
     
     [[JSBubbleView appearance] setFont:[UIFont systemFontOfSize:12.0f]];
     [self setBackgroundColor:[UIColor whiteColor]];
     self.sender = @"admin";
     
     self.title = @"My Messages";
-    self.messageInputView.textView.placeHolder = @"Send Message";
+    self.messageInputView.textView.placeHolder = @"New Message";
     [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
+    self.defaultProfileImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar-placeholder"]];
     
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-
+    
+    [super viewWillAppear:animated];
     NSString * Account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
 
     [[EHNetworkManager theManager] retrieveUserMessages:Account];
@@ -62,7 +64,6 @@
 
 -(void) renderAllMessages{
     
-    //[self.messageInputView reloadInputViews];
     [self.tableView reloadData];
     
 }
@@ -70,8 +71,13 @@
 -(void) loadBubbleMessageData {
     
     self.messages = [NSMutableArray array];
-    for (NSDictionary *messageData in self.allMyMessagesArray) {
-        JSMessage *message = [[JSMessage alloc] initWithText:messageData[@"msg_desc"] sender:messageData[@"first_name"] date:messageData[@"msg_date"]];
+    for (NSMutableDictionary *messageData in self.allMyMessagesArray) {
+        NSString *dateString = messageData[@"msg_date"];
+        NSDateFormatter *dateFormattor = [[NSDateFormatter alloc] init];
+        [dateFormattor setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSDate *messageDate = [[NSDate alloc] init];
+        messageDate = [dateFormattor dateFromString:dateString];
+        JSMessage *message = [[JSMessage alloc] initWithText:messageData[@"msg_desc"] sender:messageData[@"first_name"] date:messageDate];
         [self.messages addObject:message];
     }
 }
@@ -89,18 +95,31 @@
 
 - (void)didSendText:(NSString *)text fromSender:(NSString *)sender onDate:(NSDate *)date
 {
-    if ((self.messages.count - 1) % 2) {
-        [JSMessageSoundEffect playMessageSentSound];
-    }
-    else {
-        // for demo purposes only, mimicing received messages
-        [JSMessageSoundEffect playMessageReceivedSound];
-        sender = @"user";
-        //TODO - replace this with current user name
-    }
-    
-    [self.messages addObject:[[JSMessage alloc] initWithText:text sender:sender date:date]];
-    
+    [JSMessageSoundEffect playMessageSentSound];
+
+    //add timestamp
+    NSDate *now = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"hh:mm:ss";
+    [dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+
+    JSMessage *message = [[JSMessage alloc] initWithText:text sender:sender date:now];
+    [self.messages addObject:message];
+
+    sender = @"user";
+    //TODO - replace this with current user name
+    // TODO call webservice to send message.
+    NSMutableDictionary *newMessageDictionary = [NSMutableDictionary dictionary];
+    [self.allMyMessagesArray addObject:newMessageDictionary];
+    newMessageDictionary[@"first_name"] = sender;
+    newMessageDictionary[@"msg_date"] = [dateFormatter stringFromDate:now];   //"2014-02-27 19:41:51";
+    newMessageDictionary[@"msg_desc"] = text;
+    newMessageDictionary[@"msg_id"] = @"TBD";
+    NSString * Account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
+    newMessageDictionary[@"user_id_from"] = Account;
+    newMessageDictionary[@"user_id_to"] = @"1";
+    newMessageDictionary[@"user_image"] = @"bg-invite.gif";
+    newMessageDictionary[@"user_type"] = @"user";
     [self finishSend];
     [self scrollToBottomAnimated:YES];
 }
@@ -127,19 +146,6 @@
                                                           color:[UIColor js_bubbleLightGrayColor]];
 }
 
-/*- (JSMessagesViewTimestampPolicy)timestampPolicy{
-    return JSMessagesViewTimestampPolicyAll;
-}
-
-- (JSMessagesViewAvatarPolicy)avatarPolicy{
-    return JSMessagesViewAvatarPolicyAll;
-}
-
-- (JSMessagesViewSubtitlePolicy)subtitlePolicy{
-    return JSMessagesViewSubtitlePolicyAll;
-}
-*/
-
 - (JSMessageInputViewStyle)inputViewStyle{
     return JSMessageInputViewStyleFlat;
 }
@@ -159,23 +165,6 @@
     
 }
 
-- (UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath{
-   
-    //return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Profile.jpg"]];
-    NSMutableDictionary *message = self.allMyMessagesArray[indexPath.row];
-    if(!message[@"user_image"]){
-        return nil;
-    } else {
-        
-        NSString *avatarImageUrl = [self.imageUrl stringByAppendingString:message[@"user_image"]];
-        NSURL *url = [NSURL URLWithString:avatarImageUrl];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *img = [[UIImage alloc] initWithData:data];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
-        return imageView;
-    }
-}
-
 - (NSString *)subtitleForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSMutableDictionary *message = self.allMyMessagesArray[indexPath.row];
     return message[@"first_name"];
@@ -191,7 +180,7 @@
 
 - (void)configureCell:(JSBubbleMessageCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    if([cell messageType] == JSBubbleMessageTypeOutgoing) {
+    if([cell messageType] == JSBubbleMessageTypeIncoming) {
         cell.bubbleView.textView.textColor = [UIColor whiteColor];
         
         if([cell.bubbleView.textView respondsToSelector:@selector(linkTextAttributes)]) {
@@ -244,19 +233,31 @@
 
 - (UIImageView *)avatarImageViewForRowAtIndexPath:(NSIndexPath *)indexPath sender:(NSString *)sender
 {
-    //return [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Profile.jpg"]];
+
     NSMutableDictionary *message = self.allMyMessagesArray[indexPath.row];
-    if(!message[@"user_image"]){
-        return nil;
-    } else {
-        
-        NSString *avatarImageUrl = [self.imageUrl stringByAppendingString:message[@"user_image"]];
-        NSURL *url = [NSURL URLWithString:avatarImageUrl];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *img = [[UIImage alloc] initWithData:data];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:img];
-        return imageView;
+    if(message[@"user_image"]){
+        // asynchronously loading avatar images for user and admin.
+        dispatch_async(kBgQueue, ^{
+
+            NSString *avatarImageUrl = [self.imageUrl stringByAppendingString:message[@"user_image"]];
+            NSURL *url = [NSURL URLWithString:avatarImageUrl];
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            if (data) {
+                UIImage *image = [UIImage imageWithData:data];
+                if (image) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        UITableViewCell *updateCell = (id)[self.tableView cellForRowAtIndexPath:indexPath];
+
+                        if (updateCell)
+                            updateCell.imageView.image = image;
+                            [updateCell setNeedsLayout];
+                    });
+                }
+            }
+        });
+    
     }
+    return self.defaultProfileImageView;
 
 }
 
@@ -271,7 +272,9 @@
     if ([manager.responseDictionary[@"service"]  isEqualToString:@"getAllUserMessages"])
     {
         if ([manager.responseDictionary[@"status"] isEqualToString:@"yes"]) {
-            self.allMyMessagesArray = manager.responseDictionary[@"data"];
+            
+            NSArray *messageResponse = manager.responseDictionary[@"data"];
+            self.allMyMessagesArray = [NSMutableArray arrayWithArray:messageResponse];
             [self loadBubbleMessageData];
             self.imageUrl = manager.responseDictionary[@"url"];
             [self renderAllMessages];
