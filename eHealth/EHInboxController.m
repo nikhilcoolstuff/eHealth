@@ -122,6 +122,9 @@
     newMessageDictionary[@"user_type"] = @"user";
     [self finishSend];
     [self scrollToBottomAnimated:YES];
+    
+    NSString *account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
+    [[EHNetworkManager theManager] pushMessagesToServer:text fromUserID:account];
 }
 
 - (JSBubbleMessageType)messageTypeForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -245,12 +248,12 @@
             if (data) {
                 UIImage *image = [UIImage imageWithData:data];
                 if (image) {
+                    UIImageView *cellImageView = [[UIImageView alloc] initWithImage:image];
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        UITableViewCell *updateCell = (id)[self.tableView cellForRowAtIndexPath:indexPath];
+                        JSBubbleMessageCell *updateCell = (id)[self.tableView cellForRowAtIndexPath:indexPath];
 
                         if (updateCell)
-                            updateCell.imageView.image = image;
-                            [updateCell setNeedsLayout];
+                            [updateCell setAvatarImageView:cellImageView];
                     });
                 }
             }
@@ -281,7 +284,12 @@
         } else {
             [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:manager.responseDictionary[@"msg"]];
         }
+    } else if ([manager.responseDictionary[@"service"]  isEqualToString:@"addMessage"]) {
+        if (![manager.responseDictionary[@"status"] isEqualToString:@"yes"]) {
+            [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:manager.responseDictionary[@"msg"]];
+        }
     }
+
 }
 
 @end

@@ -88,7 +88,7 @@
 
     // Check User Messages
     //temp testing
-    userId = @"15";
+    //userId = @"15";
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=%@&func=getAllUserMessages&limit=0&id=%@",kSecureToken, userId];
     [self makeServerRequestforServiceUrl:URL];
 }
@@ -99,6 +99,13 @@
 
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=getUserData&t=&t=%@&id=%@",kSecureToken,userId];
     [self makeServerRequestforServiceUrl:URL];
+}
+
+-(void)pushMessagesToServer :(NSString*)userMessage fromUserID:(NSString *)userId {
+    
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?func=addMessage&t=%@&msg=%@&to=1&from=%@",kSecureToken,userMessage, userId];
+    [self makeServerRequestforServiceUrl:URL];
+   
 }
 
 -(void)getAllSymptoms

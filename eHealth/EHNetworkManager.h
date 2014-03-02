@@ -18,6 +18,7 @@
 -(void)getAllSymptoms;
 -(void) getAllPains;
 -(void) retrieveUserMessages:(NSString *) userId;
+-(void)pushMessagesToServer :(NSString*)userMessage fromUserID:(NSString *)userId;
 
 + (EHNetworkManager *)theManager;
 
