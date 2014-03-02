@@ -25,13 +25,16 @@
     return self;
 }
 
+-(void) dealloc {
+ 
+    [[EHNetworkManager theManager] removeObserver:self forKeyPath:@"responseDictionary"];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    NSString * Account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
     [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
-    [[EHNetworkManager theManager] getUserDetailsforUser:Account];
 
     self.navigationController.topViewController.title = @"Profile";
     
@@ -71,6 +74,15 @@
     self.scrollView.contentSize = CGSizeMake(320, 590);
     self.scrollView.backgroundColor = [UIColor whiteColor];
     
+}
+
+-(void) viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    NSString * Account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
+    [[EHNetworkManager theManager] getUserDetailsforUser:Account];
+
 }
 
 -(void)styleFriendProfileImage:(UIImageView*)imageView withImageNamed:(NSString*)imageName andColor:(UIColor*)color{
