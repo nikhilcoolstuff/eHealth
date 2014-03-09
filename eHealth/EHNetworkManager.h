@@ -15,8 +15,8 @@
 
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password;
 -(void)getUserDetailsforUser:(NSString *)userId;
--(void)getAllSymptoms;
--(void) getAllPains;
+-(void)getAllSymptomEvents;
+-(void) getAllPainLevels;
 -(void) retrieveUserMessages:(NSString *) userId;
 -(void)pushMessagesToServer :(NSString*)userMessage fromUserID:(NSString *)userId;
 

@@ -46,7 +46,7 @@
     self.messageInputView.textView.placeHolder = @"New Message";
     [[EHNetworkManager theManager] addObserver:self forKeyPath:@"responseDictionary" options:NSKeyValueObservingOptionNew context:NULL];
     self.defaultProfileImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"avatar-placeholder"]];
-    
+    self.messageInputView.textView.userInteractionEnabled = NO;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -64,7 +64,10 @@
 
 -(void) renderAllMessages{
     
-    [self.tableView reloadData];
+    if (self.allMyMessagesArray.count) {
+        self.messageInputView.textView.userInteractionEnabled = YES;
+        [self.tableView reloadData];
+    }
     
 }
 
@@ -108,7 +111,7 @@
 
     sender = @"user";
     //TODO - replace this with current user name
-    // TODO call webservice to send message.
+
     NSMutableDictionary *newMessageDictionary = [NSMutableDictionary dictionary];
     [self.allMyMessagesArray addObject:newMessageDictionary];
     newMessageDictionary[@"first_name"] = sender;
@@ -120,6 +123,7 @@
     newMessageDictionary[@"user_id_to"] = @"1";
     newMessageDictionary[@"user_image"] = @"bg-invite.gif";
     newMessageDictionary[@"user_type"] = @"user";
+    [self loadBubbleMessageData];
     [self finishSend];
     [self scrollToBottomAnimated:YES];
     

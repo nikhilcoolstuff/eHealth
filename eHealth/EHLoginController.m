@@ -138,11 +138,7 @@
 #pragma actions
 
 - (IBAction)loginAction:(id)sender {
-    // [self pains];
-    
-    // [self symptoms];
     [self loginProcess];
-    
 }
 
 - (IBAction)forgotAction:(id)sender {
@@ -152,6 +148,7 @@
 - (IBAction)signUP:(id)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:kSignupURL]];
 }
+
 
 #pragma validate email
 
@@ -184,6 +181,7 @@
     return NO;
 }
 
+
 #pragma local Methods
 
 -(void) loginProcess {
@@ -202,15 +200,6 @@
         
         [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"User name or password cannot be blank"];
     }
-}
-
--(void) symptoms
-{
-    [[EHNetworkManager theManager] getAllSymptoms];
-}
--(void) pains
-{
-    [[EHNetworkManager theManager] getAllPains];
 }
 
 

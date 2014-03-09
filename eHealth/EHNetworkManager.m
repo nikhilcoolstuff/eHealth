@@ -64,16 +64,16 @@
         self.responseDictionary = nil;
     }
     
-    NSURLResponse * response = nil;
-    NSError * error = nil;
-    [NSURLConnection sendSynchronousRequest:request
-                                          returningResponse:&response
-                                                      error:&error];
-    if (error == nil) {
-        NSLog(@"Connection Successful");
-    } else {
-        [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"An error occured while fetching data."];
-    }
+   // NSURLResponse * response = nil;
+   // NSError * error = nil;
+   // [NSURLConnection sendSynchronousRequest:request
+   //                                       returningResponse:&response
+   //                                                   error:&error];
+    //if (error == nil) {
+    //    NSLog(@"Connection Successful");
+   // } else {
+   //     [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"An error occured while fetching data."];
+   // }
 }
 
 -(void) sendLoginRequestWithId:(NSString *) login password:(NSString *) password {
@@ -108,7 +108,7 @@
    
 }
 
--(void)getAllSymptoms
+-(void)getAllSymptomEvents
 {
     // retrieve user headache symptoms.
     
@@ -116,7 +116,7 @@
     [self makeServerRequestforServiceUrl:URL];
 }
 
--(void) getAllPains {
+-(void) getAllPainLevels {
     
     // retrieve user pain levels.
     NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=centiva123&func=getLevelOfPain"];
