@@ -112,17 +112,29 @@
 {
     // retrieve user headache symptoms.
     
-    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=centiva123&func=getAllSymptoms&d=1"];
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=%@&func=getAllSymptoms&d=1",kSecureToken];
     [self makeServerRequestforServiceUrl:URL];
 }
 
 -(void) getAllPainLevels {
     
     // retrieve user pain levels.
-    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=centiva123&func=getLevelOfPain"];
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=%@&func=getLevelOfPain",kSecureToken];
     [self makeServerRequestforServiceUrl:URL];
 }
 
+-(void) addanEventforUser:(NSString *)userId description:(NSString *)description additionalComments:(NSString *)additionalComments withpainLevel:(NSString *)painLevel andSymptoms:(NSArray *)symptoms {
+    
+    //add event
+    NSString *concatenatedString = [[NSString alloc] init];
+    for (NSString *symptom in symptoms){
+        concatenatedString = [concatenatedString stringByAppendingString:[NSString stringWithFormat:@"%@,",symptom]];
+    }
+    NSString *symtomString = [concatenatedString substringToIndex:concatenatedString.length-1];
+
+    NSString *URL = [NSString stringWithFormat:@"http://centiva.co/newneuro/check.php?t=%@&func=addEvent&ed=%@&exd=%@&symp=%@&level=%@&id=%@",kSecureToken,description,additionalComments,symtomString,painLevel,userId];
+    [self makeServerRequestforServiceUrl:URL];
+}
 
 #pragma mark - NSURLConnectionDelegate Methods
 

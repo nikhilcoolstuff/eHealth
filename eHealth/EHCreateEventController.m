@@ -8,6 +8,7 @@
 
 #import "EHCreateEventController.h"
 #import "EHNetworkManager.h"
+#import "EHAppDelegate.h"
 
 @interface EHCreateEventController ()
 {
@@ -86,6 +87,9 @@
     [self.eventDescTextView resignFirstResponder];
     [self.extraDetailsTextView resignFirstResponder];
     //TODO call webservice to create the event.
+    NSString *account = [[NSUserDefaults standardUserDefaults] stringForKey:@"Account"];
+
+    [[EHNetworkManager theManager] addanEventforUser:account description:self.eventDescTextView.text additionalComments:self.extraDetailsTextView.text withpainLevel:@"1" andSymptoms:[NSArray arrayWithObject:@"1"]];
 }
 
 #pragma tableview datasource
@@ -164,7 +168,10 @@ numberOfRowsInComponent:(NSInteger)component
 #pragma textview delegate 
 
 -(BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    return NO;
+    if (textView.tag == 1)
+        return NO;
+    else
+        return YES;
 }
 
 -(void) textViewDidBeginEditing:(UITextView *)textView {
@@ -193,6 +200,12 @@ numberOfRowsInComponent:(NSInteger)component
     } else if([manager.responseDictionary[@"service"]  isEqualToString:@"getLevelOfPain"]) {
         myLevels = [NSMutableArray arrayWithArray:manager.responseDictionary[@"data"]];
         [self.levelsPickerView reloadAllComponents];
+    } else if ([manager.responseDictionary[@"service"] isEqualToString:@"addEvent"]){
+        if ([manager.responseDictionary[@"status"] isEqualToString:@"yes"]) {
+            [[EHAppDelegate theDelegate] showAlertWithTitle:@"Success" message:@"Event Added successfully"];
+        } else {
+            [[EHAppDelegate theDelegate] showAlertWithTitle:@"Error" message:@"Error adding event"];
+        }
     }
 }
 

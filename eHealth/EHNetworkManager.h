@@ -19,6 +19,7 @@
 -(void) getAllPainLevels;
 -(void) retrieveUserMessages:(NSString *) userId;
 -(void)pushMessagesToServer :(NSString*)userMessage fromUserID:(NSString *)userId;
+-(void) addanEventforUser:(NSString *)userId description:(NSString *)description additionalComments:(NSString *)additionalComments withpainLevel:(NSString *)painLevel andSymptoms:(NSArray *)symptoms;
 
 + (EHNetworkManager *)theManager;
 
