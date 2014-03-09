@@ -62,6 +62,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:Nil];
 }
 
+-(void) dealloc {
+    
+    [[EHNetworkManager theManager] removeObserver:self forKeyPath:@"responseDictionary"];
+}
+
 -(void) viewWillAppear:(BOOL)animated {
     
     [self.eventDescTextView becomeFirstResponder];
